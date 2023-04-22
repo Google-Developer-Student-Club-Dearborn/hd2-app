@@ -5,6 +5,7 @@ void main() {
   runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -51,7 +52,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   bool _isLaunchingVisible = true;
-  bool _isUsingLaunchVideo = true;
   final VideoPlayerController _launchVideoController = VideoPlayerController.asset(
       'assets/launch.mp4',
   );
@@ -59,11 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _launchVideoController.initialize().then((_) {
+    _launchVideoController.initialize().then((_) {;
       _launchVideoController.play();
-      setState(() {});
+      _launchVideoController.addListener(_onVideoEvent);
     });
-    _launchVideoController.addListener(_onVideoEvent);
   }
 
   void _onVideoEvent() {
@@ -140,15 +139,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Container(color: Colors.black)
           ),
           AnimatedOpacity(
-            opacity: _isLaunchingVisible ? 1.0: 0.5,
+            opacity: _isLaunchingVisible ? 1.0: 0,
             duration: const Duration(milliseconds: 300),
             onEnd: () {
-              setState(() {
-                _isUsingLaunchVideo = false;
-                _launchVideoController.dispose();
-              });
+              _launchVideoController.dispose();
             },
-            child: _isUsingLaunchVideo ? VideoPlayer(_launchVideoController) : null,
+            child: VideoPlayer(_launchVideoController)
           ),
       ],
     );
