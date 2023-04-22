@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:hd2_app/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -51,25 +50,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  bool _isLaunchingVisible = true;
-  final VideoPlayerController _launchVideoController = VideoPlayerController.asset(
-      'assets/launch.mp4',
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    _launchVideoController.initialize().then((_) {;
-      _launchVideoController.play();
-      _launchVideoController.addListener(_onVideoEvent);
-    });
-  }
-
-  void _onVideoEvent() {
-    if (_launchVideoController.value.position == _launchVideoController.value.duration) {
-      setState(() => _isLaunchingVisible = false);
-    }
-  }
 
   void _incrementCounter() {
     setState(() {
@@ -134,18 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Icon(Icons.add),
             ), // This trailing comma makes auto-formatting nicer for build methods.
           ),
-          Visibility(
-            visible: _isLaunchingVisible,
-            child: Container(color: Colors.black)
-          ),
-          AnimatedOpacity(
-            opacity: _isLaunchingVisible ? 1.0: 0,
-            duration: const Duration(milliseconds: 300),
-            onEnd: () {
-              _launchVideoController.dispose();
-            },
-            child: VideoPlayer(_launchVideoController)
-          ),
+
+          const SplashScreen()
       ],
     );
     
