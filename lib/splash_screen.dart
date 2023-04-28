@@ -20,10 +20,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _launchVideoController.initialize().then((_) {
-      _launchVideoController.play();
-      _launchVideoController.addListener(_onVideoEvent);
-    });
+    _initVideoPlayer();
+  }
+
+  void _initVideoPlayer() async {
+    await _launchVideoController.initialize();
+    _launchVideoController.play();
+    _launchVideoController.addListener(_onVideoEvent);
   }
 
   @override
