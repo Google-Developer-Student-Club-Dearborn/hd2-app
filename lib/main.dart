@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
             index: _pageIndex,
             backgroundColor: Theme.of(context).primaryColor,
             color: Theme.of(context).primaryColorDark,
-            animationDuration: Duration(milliseconds: 300),
+            animationDuration: Duration(milliseconds: 250),
             height: 75.0,
             animationCurve: Curves.easeOutSine,
             items: const <Widget>[
