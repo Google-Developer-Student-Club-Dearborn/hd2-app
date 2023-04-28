@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -12,21 +12,30 @@ class _SplashScreenState extends State<SplashScreen> {
   bool _isLaunchingVisible = true;
   bool _isLaunchingDone = false;
 
-  final VideoPlayerController _launchVideoController = VideoPlayerController.asset(
-      'assets/launch.mp4',
+  final VideoPlayerController _launchVideoController =
+      VideoPlayerController.asset(
+    'assets/launch.mp4',
   );
 
-    @override
+  @override
   void initState() {
     super.initState();
-    _launchVideoController.initialize().then((_) {;
+    _launchVideoController.initialize().then((_) {
       _launchVideoController.play();
       _launchVideoController.addListener(_onVideoEvent);
     });
   }
 
+  @override
+  void dispose() {
+    _launchVideoController.removeListener(_onVideoEvent);
+    _launchVideoController.dispose();
+    super.dispose();
+  }
+
   void _onVideoEvent() {
-    if (_launchVideoController.value.position == _launchVideoController.value.duration) {
+    if (_launchVideoController.value.position ==
+        _launchVideoController.value.duration) {
       setState(() => _isLaunchingVisible = false);
     }
   }
@@ -37,10 +46,10 @@ class _SplashScreenState extends State<SplashScreen> {
       children: [
         Visibility(
           visible: _isLaunchingVisible,
-          child: Container(color: Colors.black)
+          child: Container(color: Colors.black),
         ),
         AnimatedOpacity(
-          opacity: _isLaunchingVisible ? 1.0: 0,
+          opacity: _isLaunchingVisible ? 1.0 : 0,
           duration: const Duration(milliseconds: 300),
           onEnd: () {
             _launchVideoController.dispose();
@@ -48,7 +57,9 @@ class _SplashScreenState extends State<SplashScreen> {
               _isLaunchingDone = true;
             });
           },
-          child: !_isLaunchingDone ? VideoPlayer(_launchVideoController) : Container()
+          child: !_isLaunchingDone
+              ? VideoPlayer(_launchVideoController)
+              : Container(),
         ),
       ],
     );
