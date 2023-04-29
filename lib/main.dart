@@ -1,6 +1,15 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+
+// libraries
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
+// splash screen
 import 'package:hd2_app/splash_screen.dart';
+
+// pages
+import 'package:hd2_app/pages/agenda_page.dart';
+import 'package:hd2_app/pages/information_page.dart';
+import 'package:hd2_app/pages/qr_code_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -83,44 +92,11 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (context) {
               switch (_pageIndex) {
                 case 0:
-                  return const Center(
-                    child: Text("Agenda"),
-                  );
+                  return const AgendaPage();
                 case 1:
-                  return const Center(
-                    child: Text("Information"),
-                  );
+                  return const InformationPage();
                 default:
-                  return Center(
-                    // Center is a layout widget. It takes a single child and positions it
-                    // in the middle of the parent.
-                    child: Column(
-                      // Column is also a layout widget. It takes a list of children and
-                      // arranges them vertically. By default, it sizes itself to fit its
-                      // children horizontally, and tries to be as tall as its parent.
-                      //
-                      // Invoke "debug painting" (press "p" in the console, choose the
-                      // "Toggle Debug Paint" action from the Flutter Inspector in Android
-                      // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-                      // to see the wireframe for each widget.
-                      //
-                      // Column has various properties to control how it sizes itself and
-                      // how it positions its children. Here we use mainAxisAlignment to
-                      // center the children vertically; the main axis here is the vertical
-                      // axis because Columns are vertical (the cross axis would be
-                      // horizontal).
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Text(
-                          'QR Code',
-                        ),
-                        // Text(
-                        //   '$_counter',
-                        //   style: Theme.of(context).textTheme.headline4,
-                        // ),
-                      ],
-                    ),
-                  );
+                  return const QrCodePage();
               }
             },
           ),
