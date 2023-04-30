@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'HackDearborn 2',
       theme: ThemeData(brightness: Brightness.dark),
       home: const MyHomePage(title: 'HackDearborn 2'),
     );
@@ -46,6 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
         Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
+            elevation: 0,
+            // backgroundColor: Colors.black,
           ),
           body: Builder(
             builder: (context) {
