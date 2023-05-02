@@ -7,7 +7,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:hd2_app/splash_screen.dart';
 
 // pages
-import 'package:hd2_app/pages/agenda_page.dart';
+import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
 import 'package:hd2_app/pages/information_page.dart';
 import 'package:hd2_app/pages/qr_code_page.dart';
 
