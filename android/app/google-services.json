@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "984426677275",
+    "project_id": "hd2-app-notification",
+    "storage_bucket": "hd2-app-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984426677275:android:282c9f5b08fabe49e264be",
+        "android_client_info": {
+          "package_name": "com.example.hd_app_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984426677275-d6qlpncejl7bf406lndfermvo6an2cr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJYoHr-vM8SVSd5o0OMcTKMVhThZwDcqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984426677275-d6qlpncejl7bf406lndfermvo6an2cr7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "984426677275-9j3o406bjq6rdl7l3j282u22udmsh772.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hd2App"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
