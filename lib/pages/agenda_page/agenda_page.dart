@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+//import the three view's files
 import 'package:hd2_app/pages/agenda_page/scheduleview.dart';
-import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
-//calendar library
-import 'package:syncfusion_flutter_calendar/calendar.dart';
-
+import 'package:hd2_app/pages/agenda_page/timelineview.dart';
+import 'package:hd2_app/pages/agenda_page/dayview.dart';
 
 class AgendaPage extends StatefulWidget {
   const AgendaPage({
@@ -40,116 +37,82 @@ class _AgendaPageState extends State<AgendaPage> {
               },
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    selekshun = 1;
-                  });
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color.fromARGB(255, 102, 187, 106)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      selekshun = 1;
+                    });
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color.fromARGB(255, 102, 187, 106)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
                   ),
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Text('Dayview'),
-                ),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    selekshun = 0;
-                  });
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color.fromARGB(255, 102, 187, 106)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Text('Dayview'),
                   ),
                 ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Text('Timeline'),
-                ),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    selekshun = 2;
-                  });
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color.fromARGB(255, 102, 187, 106)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      selekshun = 0;
+                    });
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color.fromARGB(255, 102, 187, 106)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
                   ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Text('Timeline'),
+                  ),
                 ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Text('Scheduleview'),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      selekshun = 2;
+                    });
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color.fromARGB(255, 102, 187, 106)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                  ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Text('Scheduleview'),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 }
-
-
-
-class Dayview extends StatelessWidget {
-  const Dayview({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SfCalendar(
-      view: CalendarView.day,
-      dataSource: MeetingDataSource(getDataSource()),
-      showCurrentTimeIndicator: true,
-      todayHighlightColor: Color.fromARGB(0, 184, 240, 14),
-    );
-  }
-}
-
-class Timeline extends StatelessWidget {
-  const Timeline({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SfCalendar(
-      view: CalendarView.timelineDay,
-      dataSource: MeetingDataSource(getDataSource()),
-      showCurrentTimeIndicator: true,
-      todayHighlightColor: Color.fromARGB(0, 185, 8, 229),
-    );
-  }
-}
-
-
-
-

@@ -1,7 +1,4 @@
-//calendar library
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
  List<Meeting> getDataSource() {
@@ -9,6 +6,7 @@ import 'package:flutter/material.dart';
   final DateTime today = DateTime.now();
   final DateTime startTime = DateTime(today.year, today.month, today.day, 10);
   final DateTime endTime = startTime.add(const Duration(hours: 1));
+  //final theme = ;
 
   //Check-in
   meetings.add(Meeting(
@@ -54,6 +52,14 @@ import 'package:flutter/material.dart';
       Color.fromARGB(255, 73, 23, 188),
       false));
 
+  //Games and Activities
+  meetings.add(Meeting(
+      'Games and Activities',
+      DateTime(today.year, today.month, today.day, 17),
+      DateTime(today.year, today.month, today.day, 18),
+      Color.fromARGB(255, 188, 23, 141),
+      false));
+      
   return meetings;
 }
 
