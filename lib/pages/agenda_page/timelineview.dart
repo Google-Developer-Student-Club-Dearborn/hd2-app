@@ -10,15 +10,17 @@ class Timeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void calendarTapped(CalendarTapDetails calendarTapDetails){
-    if (calendarTapDetails.targetElement == CalendarElement.appointment){
-    Meeting appointment = calendarTapDetails.appointments![0];
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SecondRoute(appointment:appointment)),
-    );
-  }
-  }
+    void calendarTapped(CalendarTapDetails calendarTapDetails) {
+      if (calendarTapDetails.targetElement == CalendarElement.appointment) {
+        final tappedAppointment = calendarTapDetails.appointments![0];
+        final appointments = getDataSource();
+        final index = tappedAppointment.index;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SecondRoute(appointments: appointments, selectedIndex: index)),
+        );
+      }
+    }
     return SfCalendar(
       view: CalendarView.timelineDay,
       dataSource: MeetingDataSource(getDataSource()),

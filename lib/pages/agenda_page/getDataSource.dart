@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
   //Check-in
   meetings.add(Meeting(
-      'Check-in', startTime, startTime, const Color(0xFF0F8644), false));
+      'Check-in', startTime, startTime, const Color(0xFF0F8644), false, 0));
 
   //Sponsor-Fair
   meetings.add(Meeting(
@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
       DateTime(today.year, today.month, today.day, 10),
       DateTime(today.year, today.month, today.day, 11, 15),
       Color.fromARGB(255, 73, 23, 188),
-      false));
+      false,1));
 
   //Opening Ceremony
   meetings.add(Meeting(
@@ -26,7 +26,7 @@ import 'package:flutter/material.dart';
       DateTime(today.year, today.month, today.day, 11, 15),
       endTime.add(const Duration(hours: 1)),
       Color.fromARGB(255, 73, 23, 188),
-      false));
+      false,2));
 
   //Lunch
   meetings.add(Meeting(
@@ -34,7 +34,7 @@ import 'package:flutter/material.dart';
       DateTime(today.year, today.month, today.day, 12),
       DateTime(today.year, today.month, today.day, 13),
       Color.fromARGB(255, 73, 23, 188),
-      false));
+      false,3));
 
   //ML With Google Cloud Workshop
   meetings.add(Meeting(
@@ -42,7 +42,7 @@ import 'package:flutter/material.dart';
       DateTime(today.year, today.month, today.day, 14),
       DateTime(today.year, today.month, today.day, 15),
       Color.fromARGB(255, 73, 23, 188),
-      false));
+      false,4));
 
   //Intro to Flutter/Sponsor Workshop
   meetings.add(Meeting(
@@ -50,7 +50,7 @@ import 'package:flutter/material.dart';
       DateTime(today.year, today.month, today.day, 16),
       DateTime(today.year, today.month, today.day, 17),
       Color.fromARGB(255, 73, 23, 188),
-      false));
+      false,5));
 
   //Games and Activities
   meetings.add(Meeting(
@@ -58,19 +58,20 @@ import 'package:flutter/material.dart';
       DateTime(today.year, today.month, today.day, 17),
       DateTime(today.year, today.month, today.day, 18),
       Color.fromARGB(255, 188, 23, 141),
-      false));
+      false,6));
       
   return meetings;
 }
 
 class Meeting {
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay, this.index);
 
   String eventName;
   DateTime from;
   DateTime to;
   Color background;
   bool isAllDay;
+  int index;
 }
 
 class MeetingDataSource extends CalendarDataSource {
