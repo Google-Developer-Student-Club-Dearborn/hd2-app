@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 // pub.dev libraries
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:hd2_app/components/bottom_navbar.dart';
 
 // splash screen
-import 'package:hd2_app/splash_screen.dart';
+import 'package:hd2_app/components/splash_screen.dart';
 
 // pages
 import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
@@ -44,42 +44,31 @@ class _MyHomePageState extends State<MyHomePage> {
     return Stack(
       children: [
         Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-            elevation: 0,
-            // backgroundColor: Colors.black,
-          ),
-          body: Builder(
-            builder: (context) {
-              switch (_pageIndex) {
-                case 0:
-                  return const AgendaPage();
-                case 1:
-                  return const InformationPage();
-                default:
-                  return const QrCodePage();
-              }
-            },
-          ),
-          bottomNavigationBar: CurvedNavigationBar(
-            index: _pageIndex,
-            backgroundColor: Theme.of(context).primaryColor,
-            color: Theme.of(context).primaryColorDark,
-            animationDuration: const Duration(milliseconds: 250),
-            height: 75.0,
-            animationCurve: Curves.easeOutSine,
-            items: const <Widget>[
-              Icon(Icons.view_agenda_sharp, size: 30),
-              Icon(Icons.info, size: 30),
-              Icon(Icons.qr_code, size: 30),
-            ],
-            onTap: (index) {
-              setState(() {
-                _pageIndex = index;
-              });
-            },
-          ),
-        ),
+            appBar: AppBar(
+              title: Text(widget.title),
+              elevation: 0,
+              // backgroundColor: Colors.black,
+            ),
+            body: Builder(
+              builder: (context) {
+                switch (_pageIndex) {
+                  case 0:
+                    return const AgendaPage();
+                  case 1:
+                    return const InformationPage();
+                  default:
+                    return const QrCodePage();
+                }
+              },
+            ),
+            bottomNavigationBar: CustomBottomNavbar(
+              pageIndex: _pageIndex,
+              onTap: (index) {
+                setState(() {
+                  _pageIndex = index;
+                });
+              },
+            )),
         const SplashScreen()
       ],
     );
