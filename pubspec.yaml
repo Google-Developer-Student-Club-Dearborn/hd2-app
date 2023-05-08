@@ -19,6 +19,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   syncfusion_flutter_calendar: ^21.1.41
   dismissible_page: ^1.0.2
+  screen_brightness: ^0.2.2
 
 dev_dependencies:
   flutter_test:
