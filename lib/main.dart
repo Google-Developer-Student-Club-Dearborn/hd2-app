@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 // pub.dev libraries
 import 'package:hd2_app/components/bottom_navbar.dart';
 
+import 'package:screen_brightness/screen_brightness.dart';
+
 // splash screen
 import 'package:hd2_app/components/splash_screen.dart';
 
@@ -39,6 +41,27 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
 
+  void _onPageChange(int pageIndex) {
+    setState(() {
+      _pageIndex = pageIndex;
+    });
+    bool isQrCodePage = pageIndex == 2;
+    if (isQrCodePage) {
+      _setMaxBrightness();
+    } else {
+      _resetBrightness();
+    }
+  }
+
+  void _setMaxBrightness() {
+    double brightness = 1.0;
+    ScreenBrightness().setScreenBrightness(brightness);
+  }
+
+  void _resetBrightness() {
+    ScreenBrightness().resetScreenBrightness();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -64,9 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
             bottomNavigationBar: CustomBottomNavbar(
               pageIndex: _pageIndex,
               onTap: (index) {
-                setState(() {
-                  _pageIndex = index;
-                });
+                _onPageChange(index);
               },
             )),
         const SplashScreen()
