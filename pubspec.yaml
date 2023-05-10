@@ -33,6 +33,10 @@ flutter:
 
   assets:
      - assets/
+  fonts:
+  - family: Source Code Pro
+    fonts:
+    - asset: fonts/SourceCodePro-Regular.ttf
    
 # flutter_launcher_icons:
 #   android: "launcher_icon"

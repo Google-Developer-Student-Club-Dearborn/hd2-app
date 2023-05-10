@@ -17,15 +17,23 @@ class Timeline extends StatelessWidget {
         final index = tappedAppointment.index;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SecondRoute(appointments: appointments, selectedIndex: index)),
+          MaterialPageRoute(
+              builder: (context) => SecondRoute(
+                  appointments: appointments, selectedIndex: index)),
         );
       }
     }
+
     return SfCalendar(
       view: CalendarView.timelineDay,
       dataSource: MeetingDataSource(getDataSource()),
       showCurrentTimeIndicator: true,
-      todayHighlightColor: Color.fromARGB(0, 185, 8, 229),
+      timeSlotViewSettings: TimeSlotViewSettings(
+        timeIntervalWidth: 100,
+      ),
+      appointmentTextStyle: TextStyle(
+        fontSize: 9.0,
+      ),
       onTap: calendarTapped,
     );
   }

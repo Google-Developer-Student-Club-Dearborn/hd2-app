@@ -23,9 +23,8 @@ class Dayview extends StatelessWidget {
     }
     return SfCalendar(
       view: CalendarView.day,
-      dataSource: MeetingDataSource(getDataSource()),
       showCurrentTimeIndicator: true,
-      todayHighlightColor: Color.fromARGB(0, 184, 240, 14),
+      dataSource: MeetingDataSource(getDataSource()),
       onTap: calendarTapped,
     );
   }

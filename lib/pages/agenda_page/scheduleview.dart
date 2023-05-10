@@ -29,7 +29,6 @@ class ScheduleView extends StatelessWidget {
         appointmentItemHeight: 70,
       ),
       showCurrentTimeIndicator: true,
-      todayHighlightColor: Color.fromARGB(0, 184, 240, 14),
       onTap: calendarTapped,
     );
   }
