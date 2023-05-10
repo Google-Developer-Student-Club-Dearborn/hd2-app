@@ -29,5 +29,9 @@ flutter:
 
   assets:
      - assets/
+  fonts:
+  - family: Source Code Pro
+    fonts:
+    - asset: fonts/SourceCodePro-Regular.ttf
    
   # Can add custom fonts here
