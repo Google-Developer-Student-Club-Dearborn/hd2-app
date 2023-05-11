@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //import the three view's files
 import 'package:hd2_app/pages/agenda_page/scheduleview.dart';
 import 'package:hd2_app/pages/agenda_page/timelineview.dart';
 import 'package:hd2_app/pages/agenda_page/dayview.dart';
 import 'package:hd2_app/pages/agenda_page/filtermenu.dart';
 import 'package:hd2_app/pages/agenda_page/navbar.dart';
+import 'package:hd2_app/main.dart';
 
 class AgendaPage extends StatefulWidget {
   const AgendaPage({
@@ -16,8 +18,6 @@ class AgendaPage extends StatefulWidget {
 }
 
 class _AgendaPageState extends State<AgendaPage> {
-  int selekshun = 0;
-  final GlobalKey<NavBarState> _navBarKey = GlobalKey<NavBarState>();
 
   void _showFilterModal() {
     showModalBottomSheet(
@@ -29,7 +29,7 @@ class _AgendaPageState extends State<AgendaPage> {
   }
 
   void updateIsCheckedList(List<bool> isCheckedList) {
-  int amount = 0;
+  final navSettingsProvider = Provider.of<MyAppState>(context, listen: false);
   List<String> allTrues = [];
   if (isCheckedList[0] == true){
     allTrues.add('Scheduleview');
@@ -42,38 +42,27 @@ class _AgendaPageState extends State<AgendaPage> {
   }
 
   if (allTrues.length == 1){
-    amount = allTrues.length;
-    setState(() {
-    _navBarKey.currentState?.settings.allTrues = allTrues;
-    _navBarKey.currentState?.amountOfButtons = amount;
-    });
+    navSettingsProvider.selection = (myMap[allTrues.first]!);
+    navSettingsProvider.allTrues = allTrues;
+    navSettingsProvider.amountOfButtons = allTrues.length;
   }
   else if (allTrues.length == 2){
-    amount = allTrues.length;
-    setState(() {
-    _navBarKey.currentState?.settings.allTrues = allTrues;
-    _navBarKey.currentState?.amountOfButtons = amount;
-    });
+    navSettingsProvider.selection = (myMap[allTrues.first]!);
+    navSettingsProvider.allTrues = allTrues;
+    navSettingsProvider.amountOfButtons = allTrues.length;
   }
   else if (allTrues.length == 3 || (allTrues.isEmpty)){
-    setState(() {
-    _navBarKey.currentState?.settings.allTrues = ['Timeline', 'Dayview', 'Scheduleview'];
-    _navBarKey.currentState?.amountOfButtons = 3;
-    });
+    navSettingsProvider.allTrues = ['Timeline', 'Dayview', 'Scheduleview'];
+    navSettingsProvider.amountOfButtons = 3;
   }
   
   
 }
 
 
-  void onSelectionChanged(int selection) {
-    setState(() {
-      selekshun = selection;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final navSettingsProvider = Provider.of<MyAppState>(context);
     return Scaffold(
       floatingActionButton: Container(
           margin: EdgeInsets.only(bottom: 38, right: 0),
@@ -88,7 +77,7 @@ class _AgendaPageState extends State<AgendaPage> {
           Expanded(
             child: Builder(
               builder: (context) {
-                switch (selekshun) {
+                switch (navSettingsProvider.selection) {
                   case 0:
                     return const Timeline();
                   case 1:
@@ -101,7 +90,8 @@ class _AgendaPageState extends State<AgendaPage> {
               },
             ),
           ),
-          NavBar(key: _navBarKey,onSelectionChanged: onSelectionChanged),
+          if (navSettingsProvider.amountOfButtons != 1)
+            NavBar(onSelectionChanged: navSettingsProvider.setSelection),
         ],
       ),
     );

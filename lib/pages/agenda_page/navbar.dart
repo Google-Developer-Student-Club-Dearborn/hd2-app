@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hd2_app/main.dart';
+import 'package:provider/provider.dart';
 
 Map<String, int> myMap = {
   'Timeline': 0,
@@ -6,7 +8,7 @@ Map<String, int> myMap = {
   'Scheduleview': 2,
 };
 
-class filterSettings {
+class FilterSettings {
   var timeline =
       agendaItem(buttonName: "Timeline", id: 0, selectionStatus: true);
   var day = agendaItem(buttonName: "Dayview", id: 1, selectionStatus: true);
@@ -35,12 +37,14 @@ class NavBar extends StatefulWidget {
 }
 
 class NavBarState extends State<NavBar> {
-  int amountOfButtons = 3;
-  filterSettings settings = filterSettings();
+  
 
   @override
   Widget build(BuildContext context) {
-    print('NavBar is being rebuilt');
+    final navSettingsProvider = Provider.of<MyAppState>(context);
+    final settings = navSettingsProvider.filterSettings;
+    final amountOfButtons = navSettingsProvider.amountOfButtons;
+    
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Builder(
@@ -92,9 +96,9 @@ class _OneButtonState extends State<OneButton> {
       children: [
         ElevatedButton(
           onPressed: () {
-            setState(() {
+       
               widget.onSelectionChanged(widget.buttonIdentifier);
-            });
+          
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
@@ -145,9 +149,9 @@ class _TwoButtonsState extends State<TwoButtons> {
       children: [
         ElevatedButton(
           onPressed: () {
-            setState(() {
+        
               widget.onSelectionChanged(widget.button1Identifier);
-            });
+       
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
@@ -166,9 +170,9 @@ class _TwoButtonsState extends State<TwoButtons> {
         SizedBox(width: 10),
         ElevatedButton(
           onPressed: () {
-            setState(() {
+        
               widget.onSelectionChanged(widget.button2Identifier);
-            });
+        
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
@@ -203,7 +207,6 @@ class threeButtons extends StatefulWidget {
 }
 
 class _threeButtonsState extends State<threeButtons> {
-  int _selection = 0;
   @override
   Widget build(BuildContext context) {
     print('three button view accessed');
@@ -212,10 +215,8 @@ class _threeButtonsState extends State<threeButtons> {
   children: [
     ElevatedButton(
       onPressed: () {
-        setState(() {
-          _selection = 1;
-        });
-        widget.onSelectionChanged(_selection);
+       
+        widget.onSelectionChanged(1);
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
@@ -234,10 +235,8 @@ class _threeButtonsState extends State<threeButtons> {
     SizedBox(width: 10),
     ElevatedButton(
       onPressed: () {
-        setState(() {
-          _selection = 0;
-        });
-        widget.onSelectionChanged(_selection);
+       
+        widget.onSelectionChanged(0);
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
@@ -256,10 +255,8 @@ class _threeButtonsState extends State<threeButtons> {
     SizedBox(width: 10),
     ElevatedButton(
       onPressed: () {
-        setState(() {
-          _selection = 2;
-        });
-        widget.onSelectionChanged(_selection);
+    
+        widget.onSelectionChanged(2);
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
