@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // pub.dev libraries
 import 'package:hd2_app/components/bottom_navbar.dart';
@@ -12,6 +13,7 @@ import 'package:hd2_app/components/splash_screen.dart';
 import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
 import 'package:hd2_app/pages/information_page.dart';
 import 'package:hd2_app/pages/qr_code_page.dart';
+import 'package:hd2_app/pages/agenda_page/navbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,11 +24,52 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'HackDearborn 2',
-      theme: ThemeData(brightness: Brightness.dark),
-      home: const MyHomePage(title: 'HackDearborn 2'),
+    return ChangeNotifierProvider(
+      create: (context) => MyAppState(),
+      child: MaterialApp(
+        title: 'HackDearborn 2',
+        theme: ThemeData(brightness: Brightness.dark),
+        home: const MyHomePage(title: 'HackDearborn 2'),
+      ),
     );
+  }
+}
+
+class MyAppState extends ChangeNotifier {
+  //TODO: store NavBar settings here
+  FilterSettings _filterSettings = FilterSettings();
+  int _amountOfButtons = 3;
+  int _selekshun = 0;
+
+  FilterSettings get filterSettings => _filterSettings;
+
+  set filterSettings(FilterSettings value) {
+    _filterSettings = value;
+    notifyListeners();
+  }
+   List<String> get allTrues => _filterSettings.allTrues;
+
+  set allTrues(List<String> newAllTrues) {
+    _filterSettings.allTrues = newAllTrues;
+    notifyListeners();
+  }
+
+   int get amountOfButtons => _amountOfButtons;
+
+  set amountOfButtons(int newValue) {
+    _amountOfButtons = newValue;
+    notifyListeners();
+  }
+
+  int get selection => _selekshun;
+
+  set selection(int newValue) {
+     _selekshun = newValue;
+      notifyListeners();
+  }
+  void setSelection(int val){
+    _selekshun = val;
+      notifyListeners();
   }
 }
 

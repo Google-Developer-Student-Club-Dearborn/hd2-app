@@ -1,8 +1,7 @@
+import 'package:hd2_app/pages/agenda_page/timechips.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
-import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
-import 'package:hd2_app/main.dart';
 
 class SecondRoute extends StatelessWidget {
   final List<Meeting> appointments;
@@ -69,68 +68,7 @@ class SecondRoute extends StatelessWidget {
                                   ? BigCard(eventName: appointment.eventName)
                                   : Text('No appointment selected'),
                               SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Chip(
-                                    avatar: Container(
-                                      width: 60,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: Colors.purple.shade800,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'From:',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 9,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    backgroundColor: Colors.pink.shade800,
-                                    label: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        DateFormat('hh:mm a')
-                                            .format(appointment.from)
-                                            .toString(),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Chip(
-                                    avatar: Container(
-                                      width: 60,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: Colors.purple.shade800,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'To:',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 9,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    backgroundColor: Colors.pink.shade800,
-                                    label: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        DateFormat('hh:mm a')
-                                            .format(appointment.to)
-                                            .toString(),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              TimeChips(from: appointment.from, to: appointment.to),
                               SizedBox(height: 20),
                                Card(
                                  color: Color(0xff4169E1).withOpacity(0.0),
