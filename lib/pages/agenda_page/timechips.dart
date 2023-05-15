@@ -6,7 +6,8 @@ class TimeChips extends StatelessWidget {
   final DateTime from;
   final DateTime to;
 
-  const TimeChips({Key? key, required this.from, required this.to}) : super(key: key);
+  const TimeChips({Key? key, required this.from, required this.to})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class TimeChips extends StatelessWidget {
               width: 60,
               height: 30,
               decoration: BoxDecoration(
-                color: Colors.purple.shade800,
+                color: Colors.purple.shade500,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
@@ -32,7 +33,7 @@ class TimeChips extends StatelessWidget {
                 ),
               ),
             ),
-            backgroundColor: Colors.pink.shade800,
+            backgroundColor: Color.fromARGB(255, 255, 102, 196),
             label: Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -51,7 +52,7 @@ class TimeChips extends StatelessWidget {
               width: 60,
               height: 30,
               decoration: BoxDecoration(
-                color: Colors.purple.shade800,
+                color: Colors.purple.shade500,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
@@ -64,7 +65,7 @@ class TimeChips extends StatelessWidget {
                 ),
               ),
             ),
-            backgroundColor: Colors.pink.shade800,
+            backgroundColor: Color.fromARGB(255, 255, 102, 196),
             label: Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -78,7 +79,7 @@ class TimeChips extends StatelessWidget {
               width: 60,
               height: 30,
               decoration: BoxDecoration(
-                color: Colors.purple.shade800,
+                color: Colors.purple.shade500,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
@@ -91,7 +92,7 @@ class TimeChips extends StatelessWidget {
                 ),
               ),
             ),
-            backgroundColor: Colors.pink.shade800,
+            backgroundColor: Color.fromARGB(255, 255, 102, 196),
             label: Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -104,4 +105,3 @@ class TimeChips extends StatelessWidget {
     }
   }
 }
-
