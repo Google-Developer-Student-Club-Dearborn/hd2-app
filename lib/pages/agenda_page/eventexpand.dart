@@ -52,51 +52,55 @@ class SecondRoute extends StatelessWidget {
       ),
       body: Container(
         color: theme.withOpacity(0.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-
-            Center(
-              child: appointment != null
-                  ?  Card(
-                        color: Color(0xff007aff).withOpacity(0.725),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Column(
-                            children: [
-                              appointment != null
-                                  ? BigCard(eventName: appointment.eventName)
-                                  : Text('No appointment selected'),
-                              SizedBox(height: 20),
-                              TimeChips(from: appointment.from, to: appointment.to),
-                              SizedBox(height: 20),
-                               Card(
-                                 color: Color(0xff4169E1).withOpacity(0.0),
-                                  margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                                    child: Center(
-                                      child: Text(
-                                        appointment.description,
-                                        style: TextStyle(
-                                          fontFamily: 'Source Code Pro',
+        child: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child:  Column(
+                
+                children: [
+                    
+                   appointment != null
+                        ?  Card(
+                              color: Color(0xff007aff).withOpacity(0.725),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 20),
+                                child: Column(
+                                  children: [
+                                    appointment != null
+                                        ? BigCard(eventName: appointment.eventName)
+                                        : Text('No appointment selected'),
+                                    SizedBox(height: 20),
+                                    TimeChips(from: appointment.from, to: appointment.to),
+                                    SizedBox(height: 20),
+                                     Card(
+                                       color: Color(0xff4169E1).withOpacity(0.0),
+                                        margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                                          child: Center(
+                                            child: Text(
+                                              appointment.description,
+                                              style: TextStyle(
+                                                fontFamily: 'Source Code Pro',
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
+                    
+                                  ],
                                 ),
-
-                            ],
-                          ),
-                        ),
-                      )
-                  : Container(),
-            ),
-                SizedBox(height: 100),
-          ],
+                              ),
+                            )
+                        : Container(),
+                  
+                ],
+              ),
+           
+          ),
         ),
       ),
     );
