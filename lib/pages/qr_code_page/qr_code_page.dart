@@ -24,25 +24,29 @@ class _QrCodePageState extends State<QrCodePage> {
           child: Column(
             children: [
               if (userQRString !="")
+                Column(
+                children: [
                 Text('Custom QR Code generated'),
-              QrImage(
-                data: userQRString, // need to fetch this from some server
-                version: QrVersions.auto,
-                size: 300.0,
-                padding: const EdgeInsets.all(10.0),
-                errorCorrectionLevel: QrErrorCorrectLevel.H,
-                foregroundColor: Colors.black,
-                backgroundColor: Colors.white,
-                gapless: true,
-                errorStateBuilder: (cxt, err) {
-                  return const Center(
-                    child: Text(
-                      "Uh oh! Something went wrong...",
-                      textAlign: TextAlign.center,
-                    ),
-                  );
-                },
-              ),
+                QrImage(
+                  data: userQRString, // need to fetch this from some server
+                  version: QrVersions.auto,
+                  size: 300.0,
+                  padding: const EdgeInsets.all(10.0),
+                  errorCorrectionLevel: QrErrorCorrectLevel.H,
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  gapless: true,
+                  errorStateBuilder: (cxt, err) {
+                    return const Center(
+                      child: Text(
+                        "Uh oh! Something went wrong...",
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  },
+                ),
+                ],
+                ),
               SizedBox(height: 50),
               if (userQRString == "")
                 InputRow(),
