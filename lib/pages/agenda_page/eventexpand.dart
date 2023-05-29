@@ -11,34 +11,59 @@ class SecondRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Color.fromARGB(256,0, 122, 255);
+    final theme = Color.fromARGB(256, 0, 122, 255);
     final appointment =
         (selectedIndex >= 0 && selectedIndex < appointments.length)
             ? appointments[selectedIndex]
             : null;
 
     return Scaffold(
-      floatingActionButton: Container(
-          margin: EdgeInsets.only(bottom: 38, right: 20),
-          child: FloatingActionButton(
-            onPressed: (){if (selectedIndex < appointments.length - 1) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SecondRoute(
-                        appointments: appointments,
-                        selectedIndex: selectedIndex + 1,
-                      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          FloatingActionButton(
+            heroTag: null,
+            onPressed: () {
+              if (selectedIndex > 0) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SecondRoute(
+                      appointments: appointments,
+                      selectedIndex: selectedIndex - 1,
                     ),
-                  );
-                } else {
-                  print('reached end');
-                }}, // Use _showFilterModal as the onPressed callback
+                  ),
+                );
+              } else {
+                print('reached start');
+              }
+            }, // Use _showFilterModal as the onPressed callback
+            elevation: 4,
+            child: const Icon(Icons.skip_previous_rounded),
+          ),
+          FloatingActionButton(
+            heroTag: null,
+            onPressed: () {
+              if (selectedIndex < appointments.length - 1) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SecondRoute(
+                      appointments: appointments,
+                      selectedIndex: selectedIndex + 1,
+                    ),
+                  ),
+                );
+              } else {
+                print('reached end');
+              }
+            }, // Use _showFilterModal as the onPressed callback
             child: Icon(Icons.skip_next_rounded),
             elevation: 4,
           ),
-        ),
-        
+        ],
+      ),
       appBar: AppBar(
         title: Text("Details"),
         actions: [
@@ -52,55 +77,52 @@ class SecondRoute extends StatelessWidget {
       ),
       body: Container(
         color: theme.withOpacity(0.0),
-        child: Center(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child:  Column(
-                
-                children: [
-                    
-                   appointment != null
-                        ?  Card(
-                              color: Color(0xff007aff).withOpacity(0.725),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: appointment != null
+                  ? Card(
+                      color: Color(0xff007aff).withOpacity(0.725),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Column(
+                          children: [
+                            appointment != null
+                                ? BigCard(eventName: appointment.eventName)
+                                : Text('No appointment selected'),
+                            SizedBox(height: 20),
+                            TimeChips(
+                                from: appointment.from, to: appointment.to),
+                            SizedBox(height: 20),
+                            Card(
+                              color: Color(0xff4169E1).withOpacity(0.0),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 20),
-                                child: Column(
-                                  children: [
-                                    appointment != null
-                                        ? BigCard(eventName: appointment.eventName)
-                                        : Text('No appointment selected'),
-                                    SizedBox(height: 20),
-                                    TimeChips(from: appointment.from, to: appointment.to),
-                                    SizedBox(height: 20),
-                                     Card(
-                                       color: Color(0xff4169E1).withOpacity(0.0),
-                                        margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                                          child: Center(
-                                            child: Text(
-                                              appointment.description,
-                                              style: TextStyle(
-                                                fontFamily: 'Source Code Pro',
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                    
-                                  ],
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 5),
+                                child: Center(
+                                  child: Text(
+                                    appointment.description,
+                                    style: TextStyle(
+                                      fontFamily: 'Source Code Pro',
+                                    ),
+                                  ),
                                 ),
                               ),
-                            )
-                        : Container(),
-                  
-                ],
-              ),
-           
-          ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : Container(),
+            ),
+            SizedBox(height: 100),
+          ],
         ),
       ),
     );
@@ -116,18 +138,17 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
-        child: Text(
-          eventName,
-          style: TextStyle(
-            fontFamily: 'Material Icons',
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+      child: Text(
+        eventName,
+        style: TextStyle(
+          fontFamily: 'Material Icons',
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
-      );
-
+      ),
+    );
   }
 }
