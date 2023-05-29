@@ -28,6 +28,10 @@ class _AgendaPageState extends State<AgendaPage> {
     );
   }
 
+  //the "isCheckedList" holds one bool for each view in the agenda page
+  //"allTrues" is resized as necessary to hold all the names of the views
+  //defaults to holding the names of all the views
+
   void updateIsCheckedList(List<bool> isCheckedList) {
   final navSettingsProvider = Provider.of<MyAppState>(context, listen: false);
   List<String> allTrues = [];
@@ -67,7 +71,7 @@ class _AgendaPageState extends State<AgendaPage> {
       floatingActionButton: Container(
           margin: EdgeInsets.only(bottom: 38, right: 0),
           child: FloatingActionButton(
-            onPressed: _showFilterModal, // Use _showFilterModal as the onPressed callback
+            onPressed: _showFilterModal, 
             child: Icon(Icons.filter_list),
             elevation: 4,
           ),
@@ -90,6 +94,7 @@ class _AgendaPageState extends State<AgendaPage> {
               },
             ),
           ),
+          //only show the NavBar if one view is selected by the user
           if (navSettingsProvider.amountOfButtons != 1)
             NavBar(onSelectionChanged: navSettingsProvider.setSelection),
         ],

@@ -12,8 +12,8 @@ import 'package:hd2_app/components/splash_screen.dart';
 // pages
 import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
 import 'package:hd2_app/pages/information_page.dart';
-import 'package:hd2_app/pages/qr_code_page.dart';
 import 'package:hd2_app/pages/agenda_page/navbar.dart';
+import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,6 +40,14 @@ class MyAppState extends ChangeNotifier {
   FilterSettings _filterSettings = FilterSettings();
   int _amountOfButtons = 3;
   int _selekshun = 0;
+  String _userQRString = "";
+
+  String get userQRString => _userQRString;
+
+  set userQRString(String userString){
+    _userQRString = userString;
+    notifyListeners();
+  }
 
   FilterSettings get filterSettings => _filterSettings;
 
@@ -85,10 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
 
   void _onPageChange(int pageIndex) {
+    final qrDataProvider = Provider.of<MyAppState>(context, listen:false);
     setState(() {
       _pageIndex = pageIndex;
     });
-    bool isQrCodePage = pageIndex == 2;
+    bool isQrCodePage = (pageIndex == 2 && qrDataProvider._userQRString !="");
     if (isQrCodePage) {
       _setMaxBrightness();
     } else {
