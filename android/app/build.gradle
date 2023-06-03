@@ -75,8 +75,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
 }
 
-plugins {
-  id 'com.android.application'
+// plugins {
+//   id 'com.android.application'
 
-  id 'com.google.gms.google-services'
-}
+//   id 'com.google.gms.google-services'
+// }
