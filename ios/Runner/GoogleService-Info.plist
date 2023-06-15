@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>974919363553-lbi1ob691ls26rv3pmivj49967arbn8o.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.974919363553-lbi1ob691ls26rv3pmivj49967arbn8o</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBDU6CCnUtkJxhZAqUI2XvsKufQeH15Wsk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>974919363553</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.hd2App</string>
+	<key>PROJECT_ID</key>
+	<string>hckdbn</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hckdbn.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:974919363553:ios:9ca80f4e78389e3c6000a0</string>
+	<key>DATABASE_URL</key>
+	<string>https://hckdbn-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

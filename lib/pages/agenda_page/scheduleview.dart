@@ -18,10 +18,13 @@ class ScheduleView extends StatelessWidget {
         final index = tappedAppointment.index;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SecondRoute(appointments: appointments, selectedIndex: index)),
+          MaterialPageRoute(
+              builder: (context) => SecondRoute(
+                  appointments: appointments, selectedIndex: index)),
         );
       }
     }
+
     return SfCalendar(
       view: CalendarView.schedule,
       dataSource: MeetingDataSource(getDataSource()),
@@ -32,5 +35,4 @@ class ScheduleView extends StatelessWidget {
       onTap: calendarTapped,
     );
   }
-
 }
