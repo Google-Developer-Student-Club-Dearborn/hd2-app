@@ -17,7 +17,7 @@ class SecondRoute extends StatefulWidget {
 class _SecondRouteState extends State<SecondRoute> {
   @override
   Widget build(BuildContext context) {
-    final theme = Color.fromARGB(256, 0, 122, 255);
+    const theme = Color.fromARGB(256, 0, 122, 255);
     Meeting? appointment = (widget.selectedIndex >= 0 &&
             widget.selectedIndex < widget.appointments.length)
         ? widget.appointments[widget.selectedIndex]
@@ -25,21 +25,23 @@ class _SecondRouteState extends State<SecondRoute> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details"),
+        title: const Text("Details"),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.popUntil(context, ModalRoute.withName('/'));
             },
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
           ),
         ],
       ),
-      body: eventDetailsBody(theme: theme, appointment: appointment),
+      body: EventDetailsBody(theme: theme, appointment: appointment),
       bottomNavigationBar: GNav(
         gap: 8,
-        activeColor: Color.fromARGB(255, 255, 102, 196),
+        activeColor: const Color.fromARGB(255, 255, 102, 196),
         tabBackgroundColor: Colors.grey.shade800,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOutExpo,
         onTabChange: (index) {
           if (index == 0) {
             // Logic for the "Previous" button
@@ -58,8 +60,8 @@ class _SecondRouteState extends State<SecondRoute> {
           } else if (index == 1) {
             // Logic for the "Next" button
             if (widget.selectedIndex < widget.appointments.length - 1) {
-              widget.selectedIndex = widget.selectedIndex +1;
-               setState(() {
+              widget.selectedIndex = widget.selectedIndex + 1;
+              setState(() {
                 appointment = (widget.selectedIndex >= 0 &&
                         widget.selectedIndex < widget.appointments.length)
                     ? widget.appointments[widget.selectedIndex]
@@ -70,7 +72,7 @@ class _SecondRouteState extends State<SecondRoute> {
             }
           }
         },
-        tabs: [
+        tabs: const [
           GButton(icon: Icons.arrow_circle_left_rounded, text: 'Previous'),
           GButton(icon: Icons.arrow_circle_right_rounded, text: 'Next'),
         ],
@@ -79,8 +81,8 @@ class _SecondRouteState extends State<SecondRoute> {
   }
 }
 
-class eventDetailsBody extends StatelessWidget {
-  const eventDetailsBody({
+class EventDetailsBody extends StatelessWidget {
+  const EventDetailsBody({
     super.key,
     required this.theme,
     required this.appointment,
@@ -102,32 +104,32 @@ class eventDetailsBody extends StatelessWidget {
             children: [
               appointment != null
                   ? Card(
-                      color: Color(0xff007aff).withOpacity(0.725),
+                      color: const Color(0xff007aff).withOpacity(0.725),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Column(
                           children: [
                             appointment != null
                                 ? BigCard(eventName: appointment!.eventName)
-                                : Text('No appointment selected'),
-                            SizedBox(height: 20),
+                                : const Text('No appointment selected'),
+                            const SizedBox(height: 20),
                             TimeChips(
                                 from: appointment!.from, to: appointment!.to),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             Card(
-                              color: Color(0xff4169E1).withOpacity(0.0),
-                              margin: EdgeInsets.symmetric(
+                              color: const Color(0xff4169E1).withOpacity(0.0),
+                              margin: const EdgeInsets.symmetric(
                                   horizontal: 50, vertical: 5),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 5),
                                 child: Center(
                                   child: Text(
                                     appointment!.description,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: 'Source Code Pro',
                                     ),
                                   ),
@@ -161,7 +163,7 @@ class BigCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: Text(
         eventName,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Material Icons',
           fontSize: 30,
           fontWeight: FontWeight.bold,
