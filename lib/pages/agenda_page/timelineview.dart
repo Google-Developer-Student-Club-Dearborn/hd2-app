@@ -10,10 +10,10 @@ class Timeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void calendarTapped(CalendarTapDetails calendarTapDetails) {
+    void calendarTapped(CalendarTapDetails calendarTapDetails) async {
       if (calendarTapDetails.targetElement == CalendarElement.appointment) {
         final tappedAppointment = calendarTapDetails.appointments![0];
-        final appointments = getDataSource();
+        final appointments = await getDataSource();
         final index = tappedAppointment.index;
         Navigator.push(
           context,
@@ -24,17 +24,21 @@ class Timeline extends StatelessWidget {
       }
     }
 
-    return SfCalendar(
-      view: CalendarView.timelineDay,
-      dataSource: MeetingDataSource(getDataSource()),
-      showCurrentTimeIndicator: true,
-      timeSlotViewSettings: TimeSlotViewSettings(
-        timeIntervalWidth: 100,
-      ),
-      appointmentTextStyle: TextStyle(
-        fontSize: 9.0,
-      ),
-      onTap: calendarTapped,
-    );
+    return FutureBuilder(builder: (context, snapshot) {
+      return !snapshot.hasData
+          ? Container()
+          : SfCalendar(
+              view: CalendarView.timelineDay,
+              dataSource: MeetingDataSource(snapshot.data as List<Meeting>),
+              showCurrentTimeIndicator: true,
+              timeSlotViewSettings: TimeSlotViewSettings(
+                timeIntervalWidth: 100,
+              ),
+              appointmentTextStyle: TextStyle(
+                fontSize: 9.0,
+              ),
+              onTap: calendarTapped,
+            );
+    });
   }
 }
