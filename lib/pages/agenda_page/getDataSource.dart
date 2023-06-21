@@ -12,23 +12,27 @@ Future<List<Meeting>> getDataSource() async {
 
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   final snapshot = await ref.child('agenda').get();
-  Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
-  int c = 0;
-  for (var entry in values.entries) {
-    var value = entry.value as Map<dynamic, dynamic>;
-    // print(
-    //     '$c ${value["title"]}, ${DateTime.fromMillisecondsSinceEpoch(value["start"])}, ${DateTime.fromMillisecondsSinceEpoch(value["end"])}');
-    meetings.add(
-      Meeting(
-        value["title"],
-        DateTime.fromMillisecondsSinceEpoch(value["start"]),
-        DateTime.fromMillisecondsSinceEpoch(value["end"]),
-        const Color.fromARGB(255, 73, 23, 188),
-        false,
-        loremIpsum,
-        c++,
-      ),
-    );
+  if (snapshot.value is Map<dynamic, dynamic>) {
+    //safely casting i guess
+    var values = snapshot.value as Map<dynamic, dynamic>;
+    int c = 0;
+    for (var entry in values.entries) {
+      if (entry.value is Map<dynamic, dynamic>) {
+        //safely casting again (i guess)
+        print(entry.value);
+        meetings.add(
+          Meeting(
+            entry.value["title"],
+            DateTime.fromMillisecondsSinceEpoch(entry.value["start"]),
+            DateTime.fromMillisecondsSinceEpoch(entry.value["end"]),
+            const Color.fromARGB(255, 73, 23, 188),
+            false,
+            loremIpsum,
+            c++,
+          ),
+        );
+      }
+    }
   }
 
   return meetings;
