@@ -32,7 +32,7 @@ class ScheduleView extends StatelessWidget {
               ? Container()
               : SfCalendar(
                   view: CalendarView.schedule,
-                  dataSource: MeetingDataSource(snapshot.data as List<Meeting>),
+                  dataSource: MeetingDataSource(snapshot.data!),
                   scheduleViewSettings: ScheduleViewSettings(
                     appointmentItemHeight: 70,
                   ),

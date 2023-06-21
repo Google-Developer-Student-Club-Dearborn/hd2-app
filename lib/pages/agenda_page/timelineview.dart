@@ -24,21 +24,23 @@ class Timeline extends StatelessWidget {
       }
     }
 
-    return FutureBuilder(builder: (context, snapshot) {
-      return !snapshot.hasData
-          ? Container()
-          : SfCalendar(
-              view: CalendarView.timelineDay,
-              dataSource: MeetingDataSource(snapshot.data as List<Meeting>),
-              showCurrentTimeIndicator: true,
-              timeSlotViewSettings: TimeSlotViewSettings(
-                timeIntervalWidth: 100,
-              ),
-              appointmentTextStyle: TextStyle(
-                fontSize: 9.0,
-              ),
-              onTap: calendarTapped,
-            );
-    });
+    return FutureBuilder(
+        future: getDataSource(),
+        builder: (context, snapshot) {
+          return !snapshot.hasData
+              ? Container()
+              : SfCalendar(
+                  view: CalendarView.timelineDay,
+                  dataSource: MeetingDataSource(snapshot.data!),
+                  showCurrentTimeIndicator: true,
+                  timeSlotViewSettings: TimeSlotViewSettings(
+                    timeIntervalWidth: 100,
+                  ),
+                  appointmentTextStyle: TextStyle(
+                    fontSize: 9.0,
+                  ),
+                  onTap: calendarTapped,
+                );
+        });
   }
 }

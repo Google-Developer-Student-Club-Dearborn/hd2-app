@@ -32,7 +32,7 @@ class Dayview extends StatelessWidget {
               : SfCalendar(
                   view: CalendarView.day,
                   showCurrentTimeIndicator: true,
-                  dataSource: MeetingDataSource(snapshot as List<Meeting>),
+                  dataSource: MeetingDataSource(snapshot.data!),
                   onTap: calendarTapped,
                 );
         });
