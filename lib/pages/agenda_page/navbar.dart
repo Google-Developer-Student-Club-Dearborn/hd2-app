@@ -10,18 +10,18 @@ Map<String, int> myMap = {
 
 class FilterSettings {
   var timeline =
-      agendaItem(buttonName: "Timeline", id: 0, selectionStatus: true);
-  var day = agendaItem(buttonName: "Dayview", id: 1, selectionStatus: true);
+      AgendaItem(buttonName: "Timeline", id: 0, selectionStatus: true);
+  var day = AgendaItem(buttonName: "Dayview", id: 1, selectionStatus: true);
   var schedule =
-      agendaItem(buttonName: "Scheduleview", id: 2, selectionStatus: true);
+      AgendaItem(buttonName: "Scheduleview", id: 2, selectionStatus: true);
   List<String> allTrues = ['Timeline', 'Dayview', 'Scheduleview'];
 }
 
-class agendaItem {
+class AgendaItem {
   bool selectionStatus;
   int id;
   String buttonName;
-  agendaItem(
+  AgendaItem(
       {required this.buttonName,
       required this.id,
       required this.selectionStatus});
@@ -37,14 +37,12 @@ class NavBar extends StatefulWidget {
 }
 
 class NavBarState extends State<NavBar> {
-  
-
   @override
   Widget build(BuildContext context) {
     final navSettingsProvider = Provider.of<MyAppState>(context);
     final settings = navSettingsProvider.filterSettings;
     final amountOfButtons = navSettingsProvider.amountOfButtons;
-    
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Builder(
@@ -57,15 +55,18 @@ class NavBarState extends State<NavBar> {
                 buttonName: settings.allTrues[0],
               );
             case 2:
-              return TwoButtons(button1Identifier: myMap[settings.allTrues[0]]!,
+              return TwoButtons(
+                  button1Identifier: myMap[settings.allTrues[0]]!,
                   button2Identifier: myMap[settings.allTrues[1]]!,
                   button1Name: settings.allTrues[0],
                   button2Name: settings.allTrues[1],
                   onSelectionChanged: widget.onSelectionChanged);
             case 3: // display three buttons
-              return threeButtons(onSelectionChanged: widget.onSelectionChanged);
+              return threeButtons(
+                  onSelectionChanged: widget.onSelectionChanged);
             default:
-              return threeButtons(onSelectionChanged: widget.onSelectionChanged);
+              return threeButtons(
+                  onSelectionChanged: widget.onSelectionChanged);
           }
         },
       ),
@@ -96,13 +97,11 @@ class _OneButtonState extends State<OneButton> {
       children: [
         ElevatedButton(
           onPressed: () {
-       
-              widget.onSelectionChanged(widget.buttonIdentifier);
-          
+            widget.onSelectionChanged(widget.buttonIdentifier);
           },
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-                Color(0xffff66c4)),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Color(0xffff66c4)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
@@ -127,15 +126,14 @@ class TwoButtons extends StatefulWidget {
   final String button1Name;
   final String button2Name;
   final Function(int) onSelectionChanged;
-  TwoButtons(
-      {Key? key,
-        required this.button1Identifier,
-        required this.button2Identifier,
-        required this.button1Name,
-        required this.button2Name,
-        required this.onSelectionChanged,
-       })
-      : super(key: key);
+  TwoButtons({
+    Key? key,
+    required this.button1Identifier,
+    required this.button2Identifier,
+    required this.button1Name,
+    required this.button2Name,
+    required this.onSelectionChanged,
+  }) : super(key: key);
 
   @override
   _TwoButtonsState createState() => _TwoButtonsState();
@@ -149,9 +147,7 @@ class _TwoButtonsState extends State<TwoButtons> {
       children: [
         ElevatedButton(
           onPressed: () {
-        
-              widget.onSelectionChanged(widget.button1Identifier);
-       
+            widget.onSelectionChanged(widget.button1Identifier);
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
@@ -170,9 +166,7 @@ class _TwoButtonsState extends State<TwoButtons> {
         SizedBox(width: 10),
         ElevatedButton(
           onPressed: () {
-        
-              widget.onSelectionChanged(widget.button2Identifier);
-        
+            widget.onSelectionChanged(widget.button2Identifier);
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(
@@ -211,69 +205,65 @@ class _threeButtonsState extends State<threeButtons> {
   Widget build(BuildContext context) {
     print('three button view accessed');
     return Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-    ElevatedButton(
-      onPressed: () {
-       
-        widget.onSelectionChanged(1);
-      },
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-            Color(0xffff66c4)), // new color here
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            widget.onSelectionChanged(1);
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Color(0xffff66c4)), // new color here
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Text('Dayview'),
           ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: Text('Dayview'),
-      ),
-    ),
-    SizedBox(width: 10),
-    ElevatedButton(
-      onPressed: () {
-       
-        widget.onSelectionChanged(0);
-      },
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-            Color(0xffff66c4)), // new color here
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+        SizedBox(width: 10),
+        ElevatedButton(
+          onPressed: () {
+            widget.onSelectionChanged(0);
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Color(0xffff66c4)), // new color here
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Text('Timeline'),
           ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: Text('Timeline'),
-      ),
-    ),
-    SizedBox(width: 10),
-    ElevatedButton(
-      onPressed: () {
-    
-        widget.onSelectionChanged(2);
-      },
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-            Color(0xffff66c4)), // new color here
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+        SizedBox(width: 10),
+        ElevatedButton(
+          onPressed: () {
+            widget.onSelectionChanged(2);
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Color(0xffff66c4)), // new color here
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Text('Schedule'),
           ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: Text('Schedule'),
-      ),
-    ),
-  ],
-);
-
+      ],
+    );
   }
 }

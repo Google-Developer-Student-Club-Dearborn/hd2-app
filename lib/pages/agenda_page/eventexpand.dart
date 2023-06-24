@@ -67,8 +67,6 @@ class _SecondRouteState extends State<SecondRoute> {
                     ? widget.appointments[widget.selectedIndex]
                     : null;
               });
-            } else {
-              print('Reached the end');
             }
           }
         },
@@ -152,6 +150,7 @@ class EventDetailsBody extends StatelessWidget {
 
 class BigCard extends StatelessWidget {
   const BigCard({
+    super.key,
     required this.eventName,
   });
 

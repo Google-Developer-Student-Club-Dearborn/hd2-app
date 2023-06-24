@@ -12,7 +12,7 @@ class QrCodePage extends StatefulWidget {
 }
 
 class _QrCodePageState extends State<QrCodePage> {
-  String userQRString = "https://www.hackdearborn.com";
+  String userQRString = "";
 
   @override
   Widget build(BuildContext context) {
@@ -23,33 +23,49 @@ class _QrCodePageState extends State<QrCodePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (userQRString !="")
+              if (userQRString != "")
                 Column(
-                children: [
-                Text('Custom QR Code generated'),
-                QrImage(
-                  data: userQRString, // need to fetch this from some server
-                  version: QrVersions.auto,
-                  size: 300.0,
-                  padding: const EdgeInsets.all(10.0),
-                  errorCorrectionLevel: QrErrorCorrectLevel.H,
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
-                  gapless: true,
-                  errorStateBuilder: (cxt, err) {
-                    return const Center(
-                      child: Text(
-                        "Uh oh! Something went wrong...",
-                        textAlign: TextAlign.center,
-                      ),
-                    );
-                  },
+                  children: [
+                    Text("Using: $userQRString"),
+                    QrImage(
+                      data: userQRString, // need to fetch this from some server
+                      version: QrVersions.auto,
+                      size: 300.0,
+                      padding: const EdgeInsets.all(10.0),
+                      errorCorrectionLevel: QrErrorCorrectLevel.H,
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.white,
+                      gapless: true,
+                      errorStateBuilder: (cxt, err) {
+                        return const Center(
+                          child: Text(
+                            "Uh oh! Something went wrong...",
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      },
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff007aff),
+                          ),
+                          onPressed: () {
+                            qrDataProvider.userQRString = "";
+                            setState(() {
+                              userQRString = "";
+                            });
+                          },
+                          child: const Text("Clear"),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-                ],
-                ),
-              SizedBox(height: 50),
-              if (userQRString == "")
-                InputRow(),
+              const SizedBox(height: 50),
+              if (userQRString == "") const InputRow(),
             ],
           ),
         ),
@@ -57,4 +73,3 @@ class _QrCodePageState extends State<QrCodePage> {
     );
   }
 }
-

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hd2_app/main.dart';
-import 'package:provider/provider.dart'; 
+import 'package:provider/provider.dart';
 
 class InputRow extends StatefulWidget {
+  const InputRow({super.key});
+
   @override
   State<InputRow> createState() => _InputRowState();
 }
 
 class _InputRowState extends State<InputRow> {
-
   final textController = TextEditingController();
   final focusNode = FocusNode();
   bool showError = false;
@@ -26,10 +27,10 @@ class _InputRowState extends State<InputRow> {
   }
 
   bool isValidInput(String input) {
-  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  final isEmail = emailRegex.hasMatch(input);
-  final isPhone = int.tryParse(input) != null && input.length == 10;
-  return isEmail || isPhone;
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final isEmail = emailRegex.hasMatch(input);
+    final isPhone = int.tryParse(input) != null && input.length == 10;
+    return isEmail || isPhone;
   }
 
   @override
@@ -40,7 +41,7 @@ class _InputRowState extends State<InputRow> {
         Expanded(
           child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: const OutlineInputBorder(),
               labelText: 'Email/Phone #:',
               errorText: showError ? 'Invalid input' : null,
             ),
@@ -48,28 +49,28 @@ class _InputRowState extends State<InputRow> {
             focusNode: focusNode,
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         TextButton(
           onPressed: () {
             setState(() {
               showError = !isValidInput(textController.text);
             });
             if (!showError) {
-                qrSettingsProvider.userQRString = textController.text;
+              qrSettingsProvider.userQRString = textController.text;
             }
           },
           style: ButtonStyle(
             backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.deepPurple),
+                MaterialStateProperty.all<Color>(const Color(0xffff66c4)),
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.deepPurple),
+                side: const BorderSide(color: Color(0xffff66c4)),
               ),
             ),
           ),
-          child: Text(
+          child: const Text(
             'Generate',
             style: TextStyle(
               fontSize: 18.0,
