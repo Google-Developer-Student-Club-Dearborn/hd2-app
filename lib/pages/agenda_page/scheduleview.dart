@@ -11,26 +11,34 @@ class ScheduleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void calendarTapped(CalendarTapDetails calendarTapDetails) {
+    void calendarTapped(CalendarTapDetails calendarTapDetails) async {
       if (calendarTapDetails.targetElement == CalendarElement.appointment) {
         final tappedAppointment = calendarTapDetails.appointments![0];
-        final appointments = getDataSource();
+        final appointments = await getDataSource();
         final index = tappedAppointment.index;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SecondRoute(appointments: appointments, selectedIndex: index)),
+          MaterialPageRoute(
+              builder: (context) => SecondRoute(
+                  appointments: appointments, selectedIndex: index)),
         );
       }
     }
-    return SfCalendar(
-      view: CalendarView.schedule,
-      dataSource: MeetingDataSource(getDataSource()),
-      scheduleViewSettings: ScheduleViewSettings(
-        appointmentItemHeight: 70,
-      ),
-      showCurrentTimeIndicator: true,
-      onTap: calendarTapped,
-    );
-  }
 
+    return FutureBuilder(
+        future: getDataSource(),
+        builder: (context, snapshot) {
+          return !snapshot.hasData
+              ? Container()
+              : SfCalendar(
+                  view: CalendarView.schedule,
+                  dataSource: MeetingDataSource(snapshot.data!),
+                  scheduleViewSettings: ScheduleViewSettings(
+                    appointmentItemHeight: 70,
+                  ),
+                  showCurrentTimeIndicator: true,
+                  onTap: calendarTapped,
+                );
+        });
+  }
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "974919363553",
+    "firebase_url": "https://hckdbn-default-rtdb.firebaseio.com",
+    "project_id": "hckdbn",
+    "storage_bucket": "hckdbn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974919363553:android:506c1e8365f767a36000a0",
+        "android_client_info": {
+          "package_name": "com.example.hd_app_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974919363553-9e1qn281gv1abp14cujqku5mvb7ol8r8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqZxYZCTQnyic6Y9JkmjZgHoUPNXAqodE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974919363553-9e1qn281gv1abp14cujqku5mvb7ol8r8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "974919363553-lbi1ob691ls26rv3pmivj49967arbn8o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hd2App"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
