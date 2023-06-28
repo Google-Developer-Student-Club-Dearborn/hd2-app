@@ -44,7 +44,7 @@ class MyAppState extends ChangeNotifier {
 
   String get userQRString => _userQRString;
 
-  set userQRString(String userString){
+  set userQRString(String userString) {
     _userQRString = userString;
     notifyListeners();
   }
@@ -55,14 +55,15 @@ class MyAppState extends ChangeNotifier {
     _filterSettings = value;
     notifyListeners();
   }
-   List<String> get allTrues => _filterSettings.allTrues;
+
+  List<String> get allTrues => _filterSettings.allTrues;
 
   set allTrues(List<String> newAllTrues) {
     _filterSettings.allTrues = newAllTrues;
     notifyListeners();
   }
 
-   int get amountOfButtons => _amountOfButtons;
+  int get amountOfButtons => _amountOfButtons;
 
   set amountOfButtons(int newValue) {
     _amountOfButtons = newValue;
@@ -72,12 +73,13 @@ class MyAppState extends ChangeNotifier {
   int get selection => _selekshun;
 
   set selection(int newValue) {
-     _selekshun = newValue;
-      notifyListeners();
+    _selekshun = newValue;
+    notifyListeners();
   }
-  void setSelection(int val){
+
+  void setSelection(int val) {
     _selekshun = val;
-      notifyListeners();
+    notifyListeners();
   }
 }
 
@@ -93,11 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
 
   void _onPageChange(int pageIndex) {
-    final qrDataProvider = Provider.of<MyAppState>(context, listen:false);
+    final qrDataProvider = Provider.of<MyAppState>(context, listen: false);
     setState(() {
       _pageIndex = pageIndex;
     });
-    bool isQrCodePage = (pageIndex == 2 && qrDataProvider._userQRString !="");
+    bool isQrCodePage = (pageIndex == 2 && qrDataProvider._userQRString != "");
     if (isQrCodePage) {
       _setMaxBrightness();
     } else {

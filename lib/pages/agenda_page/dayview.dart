@@ -17,12 +17,16 @@ class Dayview extends StatelessWidget {
         final index = tappedAppointment.index;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SecondRoute(appointments: appointments, selectedIndex: index)),
+          MaterialPageRoute(
+              builder: (context) => SecondRoute(
+                  appointments: appointments, selectedIndex: index)),
         );
       }
     }
+
     return SfCalendar(
       view: CalendarView.day,
+      initialDisplayDate: DateTime(2023, 10, 21, 10),
       showCurrentTimeIndicator: true,
       dataSource: MeetingDataSource(getDataSource()),
       onTap: calendarTapped,

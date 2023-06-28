@@ -26,12 +26,13 @@ class Timeline extends StatelessWidget {
 
     return SfCalendar(
       view: CalendarView.timelineDay,
+      initialDisplayDate: DateTime(2023, 10, 21, 10),
       dataSource: MeetingDataSource(getDataSource()),
       showCurrentTimeIndicator: true,
-      timeSlotViewSettings: TimeSlotViewSettings(
+      timeSlotViewSettings: const TimeSlotViewSettings(
         timeIntervalWidth: 100,
       ),
-      appointmentTextStyle: TextStyle(
+      appointmentTextStyle: const TextStyle(
         fontSize: 9.0,
       ),
       onTap: calendarTapped,

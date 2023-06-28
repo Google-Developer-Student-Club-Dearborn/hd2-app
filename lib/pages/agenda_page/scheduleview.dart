@@ -18,19 +18,22 @@ class ScheduleView extends StatelessWidget {
         final index = tappedAppointment.index;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SecondRoute(appointments: appointments, selectedIndex: index)),
+          MaterialPageRoute(
+              builder: (context) => SecondRoute(
+                  appointments: appointments, selectedIndex: index)),
         );
       }
     }
+
     return SfCalendar(
       view: CalendarView.schedule,
+      initialDisplayDate: DateTime(2023, 10, 21, 10),
       dataSource: MeetingDataSource(getDataSource()),
-      scheduleViewSettings: ScheduleViewSettings(
+      scheduleViewSettings: const ScheduleViewSettings(
         appointmentItemHeight: 70,
       ),
       showCurrentTimeIndicator: true,
       onTap: calendarTapped,
     );
   }
-
 }

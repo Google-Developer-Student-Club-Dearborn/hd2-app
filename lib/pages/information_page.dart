@@ -1,91 +1,359 @@
 import 'package:flutter/material.dart';
 import 'package:dismissible_page/dismissible_page.dart';
+import 'package:hd2_app/components/checkbox_list.dart';
+import 'package:hd2_app/pages/cards/displayCard.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/scheduler.dart';
 
-const fiveParagraphLorem =
-    '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed elementum tempus egestas sed. Ipsum dolor sit amet consectetur adipiscing elit duis tristique sollicitudin. Habitant morbi tristique senectus et netus. In pellentesque massa placerat duis ultricies lacus sed turpis tincidunt. Tempor commodo ullamcorper a lacus vestibulum sed. Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper. Tempor id eu nisl nunc mi ipsum faucibus vitae. A erat nam at lectus urna duis convallis. Dolor sit amet consectetur adipiscing elit. Magna ac placerat vestibulum lectus mauris ultrices eros. Lacus vestibulum sed arcu non odio euismod. Feugiat in ante metus dictum at tempor commodo. Eros donec ac odio tempor.
+import 'agenda_page/filtermenu.dart';
 
-Malesuada proin libero nunc consequat interdum varius sit amet mattis. Pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna. Sed euismod nisi porta lorem mollis aliquam ut porttitor. In cursus turpis massa tincidunt dui. Ac feugiat sed lectus vestibulum mattis ullamcorper velit sed. Aliquam ultrices sagittis orci a scelerisque purus semper eget. Euismod quis viverra nibh cras pulvinar mattis. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus. Semper viverra nam libero justo laoreet sit amet cursus. Neque volutpat ac tincidunt vitae semper. Mauris augue neque gravida in fermentum et sollicitudin ac orci. Et ligula ullamcorper malesuada proin libero. Ut sem nulla pharetra diam sit. A arcu cursus vitae congue mauris. Id nibh tortor id aliquet lectus proin nibh. Gravida neque convallis a cras semper auctor neque vitae tempus. Cursus vitae congue mauris rhoncus. Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Sit amet consectetur adipiscing elit ut aliquam purus sit amet. Porttitor massa id neque aliquam vestibulum morbi blandit.
+class InformationPage extends StatefulWidget {
+  const InformationPage({Key? key}) : super(key: key);
 
-Et ultrices neque ornare aenean euismod elementum. Sit amet consectetur adipiscing elit duis tristique sollicitudin nibh sit. Suspendisse in est ante in nibh. Rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque. Lorem ipsum dolor sit amet consectetur adipiscing elit ut. Non sodales neque sodales ut etiam sit. In metus vulputate eu scelerisque felis imperdiet proin. Bibendum arcu vitae elementum curabitur vitae nunc sed velit. Ut ornare lectus sit amet est placerat in egestas erat. Turpis egestas maecenas pharetra convallis posuere morbi. Facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui. Rhoncus aenean vel elit scelerisque mauris. Auctor eu augue ut lectus arcu bibendum at varius. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit. Velit sed ullamcorper morbi tincidunt ornare massa eget. Imperdiet massa tincidunt nunc pulvinar sapien. Morbi tristique senectus et netus et malesuada. Odio aenean sed adipiscing diam donec adipiscing.
+  @override
+  _InformationPageState createState() => _InformationPageState();
+}
 
-Netus et malesuada fames ac turpis egestas. Iaculis nunc sed augue lacus viverra. Sit amet facilisis magna etiam tempor orci eu lobortis elementum. Mattis enim ut tellus elementum sagittis. Quis ipsum suspendisse ultrices gravida dictum fusce. Nullam vehicula ipsum a arcu cursus. Sed turpis tincidunt id aliquet risus feugiat in ante. Dignissim sodales ut eu sem. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit. Fermentum posuere urna nec tincidunt praesent. Praesent tristique magna sit amet purus gravida quis blandit turpis. Pretium vulputate sapien nec sagittis. Nisi scelerisque eu ultrices vitae. Accumsan lacus vel facilisis volutpat est velit. Adipiscing vitae proin sagittis nisl rhoncus. Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis.
+class _InformationPageState extends State<InformationPage> {
+  final List<String> checklist = [
+    'Make sure you are registered (You should have gotten a confirmation email)',
+    'Pack Essentials - Here is a Great List!',
+    'Confirm transportation to venue',
+    'Brainstorm ideas for hacks + which track your idea is most similar to',
+    'Think about which workshops you are most interested in or your goals for this hackathon',
+    'Arrive at 10am on Saturday, October 21st to the University Center at UM-Dearborn',
+    'Pack your laptop, charger, toothbrush/toothpaste, deodorant, sleeping bag & (student) ID!',
+  ];
 
-Magnis dis parturient montes nascetur ridiculus mus mauris. A lacus vestibulum sed arcu non odio euismod. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat. Suspendisse interdum consectetur libero id faucibus. Nam at lectus urna duis convallis convallis tellus. Massa sed elementum tempus egestas sed. Lorem ipsum dolor sit amet. Adipiscing bibendum est ultricies integer quis auctor. Proin fermentum leo vel orci porta non pulvinar. Iaculis eu non diam phasellus vestibulum lorem sed risus. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Sodales ut etiam sit amet nisl purus. Sed enim ut sem viverra aliquet. Tristique risus nec feugiat in fermentum posuere urna nec tincidunt. Urna porttitor rhoncus dolor purus non enim. Quisque id diam vel quam elementum. Id aliquet risus feugiat in ante metus dictum.''';
-
-class InformationPage extends StatelessWidget {
-  const InformationPage({super.key});
+  final List<bool> checkedItems = List.filled(7, false);
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      GestureDetector(
-        child: Card(
-            margin: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 8.0),
-            elevation: 4.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0)),
-            clipBehavior: Clip.antiAlias,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Hero(
-                  tag: "tag1",
-                  child: Image.asset(
-                    "assets/test.jpg",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Hero(
-                    tag: "tag2",
-                    child: Text(
-                      "Square Apple",
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ),
-                )
-              ],
-            )),
+    return SingleChildScrollView(
+        child: Column(children: [
+      DisplayCard(
         onTap: () {
-          context.pushTransparentRoute(DismissiblePage(
-            onDismissed: () {
-              Navigator.of(context).pop();
-            },
-            direction: DismissiblePageDismissDirection.down,
-            isFullScreen: false,
-            child: Scaffold(
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Hero(
-                      tag: 'tag1',
-                      child: Image.asset(
-                        "assets/test.jpg",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Hero(
-                        tag: "tag2",
-                        child: Text(
-                          "Square Apple",
-                          style: Theme.of(context).textTheme.headlineSmall,
+          context.pushTransparentRoute(
+            DismissiblePage(
+              onDismissed: () {
+                Navigator.of(context).pop();
+              },
+              direction: DismissiblePageDismissDirection.down,
+              isFullScreen: false,
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Hero(
+                        tag: 'tag1',
+                        child: Image.asset(
+                          'assets/checklist.jpg',
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(fiveParagraphLorem),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Hero(
+                          tag: "tag2",
+                          child: Text(
+                            'Checklist Before You Arrive',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: CheckboxListWidget(
+                          onFilterChanged: (List<bool> isCheckedList) {},
+                          titles: const [
+                            'Make sure you are registered (you should have gotten a confirmation email).',
+                            'Pack Essentials: laptop, phone, chargers, toothbrush/toothpaste, deodorant, change of clothes, sleeping bag and Identification (Student ID & Drivers License).',
+                            'Update OS, IDEs, and all other required software',
+                            'Confirm transportation to venue.',
+                            'Brainstorm ideas for hacks + which track your idea is most similar to.',
+                            'Think about which workshops you are most interested in or your goals for this hackathon',
+                            'Arrive at 10am on Saturday, October 21st to the University Center at UM-Dearborn.',
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ));
+          );
         },
-      )
-    ]);
+        image: 'assets/checklist.jpg',
+        data: 'Checklist Before You Arrive',
+      ),
+      DisplayCard(
+        onTap: () {
+          context.pushTransparentRoute(
+            DismissiblePage(
+              onDismissed: () {
+                Navigator.of(context).pop();
+              },
+              direction: DismissiblePageDismissDirection.down,
+              isFullScreen: false,
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Hero(
+                        tag: 'tag1',
+                        child: Image.asset(
+                          'assets/parking.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Hero(
+                          tag: "tag2",
+                          child: Text(
+                            'Checklist Before You Arrive',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Parking is free and is available right outside of the James C. Renick University Center. The address is:\n",
+                            ),
+                            InkWell(
+                              child: const Text(
+                                'University Center, 4901 Evergreen Rd, Dearborn, MI 48128',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              onTap: () => launchUrl(Uri.parse(
+                                  'https://goo.gl/maps/5SU5bNhFPrqMk2FU8')),
+                            ),
+                            const Text(
+                              "\nThere will be poster signs placed outside throughout campus to help navigate during the hackathon weekend!",
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        image: 'assets/parking.png',
+        data: 'Where To Park',
+      ),
+      DisplayCard(
+          onTap: () {
+            context.pushTransparentRoute(
+              DismissiblePage(
+                onDismissed: () {
+                  Navigator.of(context).pop();
+                },
+                direction: DismissiblePageDismissDirection.down,
+                isFullScreen: false,
+                child: Scaffold(
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Hero(
+                          tag: 'tag1',
+                          child: Image.asset(
+                            'assets/tracks.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Hero(
+                            tag: "tag2",
+                            child: Text(
+                              'Hackathon Tracks',
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: DataTable(
+                            dataRowHeight: 120.0,
+                            columns: const [
+                              DataColumn(
+                                  label: Text('Track',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold))),
+                              DataColumn(
+                                  label: Text('Description',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold))),
+                            ],
+                            rows: const [
+                              DataRow(
+                                cells: [
+                                  DataCell(Text('Automotive Future')),
+                                  DataCell(Text(
+                                      'Create a solution to a futuristic automotive issue: self-driving vehicles, smart mobility and connectivity.')),
+                                ],
+                              ),
+                              DataRow(
+                                cells: [
+                                  DataCell(Text('Financial Inclusion')),
+                                  DataCell(Text(
+                                      'Hackers will address the issue of inequitable access to financial services. Topics include: financial literacy, consumer protection, inclusivity and affordability.')),
+                                ],
+                              ),
+                              DataRow(
+                                cells: [
+                                  DataCell(Text('Education')),
+                                  DataCell(Text(
+                                      'Hackers will create a project that they think improves education. Possible issues are the digital divide, learning inequalities, and much more.')),
+                                ],
+                              ),
+                              DataRow(
+                                cells: [
+                                  DataCell(Text('Health & Wellness')),
+                                  DataCell(Text(
+                                      'To address issues such as healthy food consumption and mental health, hackers will develop digital solutions.')),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+          image: 'assets/tracks.jpg',
+          data: "Hackathon Tracks"),
+      DisplayCard(
+        onTap: () {
+          context.pushTransparentRoute(
+            DismissiblePage(
+              onDismissed: () {
+                Navigator.of(context).pop();
+              },
+              direction: DismissiblePageDismissDirection.down,
+              isFullScreen: false,
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Hero(
+                        tag: 'tag1',
+                        child: Image.asset(
+                          'assets/mentor.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Hero(
+                          tag: "tag2",
+                          child: Text(
+                            'Technical Mentors',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Text(
+                              "A special shoutout to our technical mentors that stay back for hours helping you code and develop your project. This year we will have a mix of software and hardware mentors again to help you create an amazing project within the timeframe.\n\nNew to this is year is a technical mentor tables, which will be the helpful version of helpdesk.\n\nThere will always be someone to assist you if your are stuck on a bug, looking for project advice or just want to talk through your code.\n\nhere will also be technical mentors walking around with neon green lanyards, feel free to stop them and ask them about your project!")),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        image: "assets/mentor.jpg",
+        data: "Technical Mentors",
+      ),
+      DisplayCard(
+          onTap: () {
+            context.pushTransparentRoute(
+              DismissiblePage(
+                onDismissed: () {
+                  Navigator.of(context).pop();
+                },
+                direction: DismissiblePageDismissDirection.down,
+                isFullScreen: false,
+                child: Scaffold(
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Hero(
+                          tag: 'tag1',
+                          child: Image.asset(
+                            'assets/judge.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Hero(
+                            tag: "tag2",
+                            child: Text(
+                              'About Judging',
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              const Text(
+                                "Your group will be given 5 mins to pitch to multiple judges as they stop by to evaluate your presentations, science-fair style.\n\nYour presentation will include an overview of the project you created in the past 24 hours, preferably a live or recorded demo, and the track you chose. You can use any material to convey your message. We recommend having slides presented on your laptop through the presentation.\n",
+                              ),
+                              InkWell(
+                                child: const Text(
+                                  'View the full rubric here.',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                onTap: () => launchUrl(Uri.parse(
+                                    'https://drive.google.com/file/d/1W5eDNCVru1EHIgIXN2jPjZG4PHrdJM8e/view')),
+                              ),
+                              const Text(
+                                "\nHackDeaborn will host a workshop on ‘How to Demo for Dummies’ Sunday Oct 22, 2023 before judging to help prepare you for project submission on devpost and what judges are looking for in a demo.\n\nTip: Don't forget to bring headphones if your project has an audio component. Lastly, to take into consideration variability, we are using an ELO rating system.\n",
+                              ),
+                              InkWell(
+                                child: const Text(
+                                  'Read about it here.',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                onTap: () => launchUrl(Uri.parse(
+                                    'https://lichess.org/@/CheckRaiseMate/blog/how-elo-ratings-actually-work/J8UZThlO')),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+          image: 'assets/judge.jpg',
+          data: "About Judging")
+    ]));
   }
 }

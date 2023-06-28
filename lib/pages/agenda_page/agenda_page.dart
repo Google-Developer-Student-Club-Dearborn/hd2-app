@@ -79,11 +79,11 @@ class _AgendaPageState extends State<AgendaPage> {
               builder: (context) {
                 switch (navSettingsProvider.selection) {
                   case 0:
-                    return const Timeline();
+                    return const ScheduleView();
                   case 1:
                     return const Dayview();
                   case 2:
-                    return const ScheduleView();
+                    return const Timeline();
                   default:
                     return const ScheduleView();
                 }
