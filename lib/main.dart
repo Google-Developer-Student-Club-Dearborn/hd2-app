@@ -14,6 +14,7 @@ import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
 import 'package:hd2_app/pages/information_page.dart';
 import 'package:hd2_app/pages/agenda_page/navbar.dart';
 import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
+import 'package:hd2_app/notification/Notification.dart';
 
 void main() {
   runApp(const MyApp());
@@ -92,6 +93,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    HD2Notification.init();
+    _listenForNotifications();
+  }
+
+  void _listenForNotifications() {
+    HD2Notification.onNotifications.stream.listen(onClickedNotification);
+  }
+
+  void onClickedNotification(String? payload) => print("here");
+  // Navigator.of(context).push();
+
   int _pageIndex = 0;
 
   void _onPageChange(int pageIndex) {
