@@ -5,42 +5,41 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.4 <3.0.0'
+    sdk: '>=2.19.4 <3.0.0'
 
 dependencies:
-  flutter:
-    sdk: flutter
-  video_player:
-  curved_navigation_bar:
-  intl: ^0.17.0
-  google_nav_bar: ^5.0.6
-  
-  cupertino_icons: ^1.0.2
-  qr_flutter: ^4.0.0
-  flutter_launcher_icons: ^0.13.1
-  syncfusion_flutter_calendar: ^21.1.41
-  dismissible_page: ^1.0.2
-  screen_brightness: ^0.2.2
-  provider: ^6.0.5
-  url_launcher: ^6.1.11
+    flutter:
+        sdk: flutter
+    video_player:
+    curved_navigation_bar:
+    intl: ^0.17.0
+    google_nav_bar: ^5.0.6
+
+    cupertino_icons: ^1.0.2
+    qr_flutter: ^4.0.0
+    flutter_launcher_icons: ^0.13.1
+    syncfusion_flutter_calendar: ^21.1.41
+    dismissible_page: ^1.0.2
+    screen_brightness: ^0.2.2
+    provider: ^6.0.5
+    url_launcher: ^6.1.11
+    flutter_local_notifications: ^15.1.0+1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+    flutter_test:
+        sdk: flutter
 
-  flutter_lints: ^2.0.0
+    flutter_lints: ^2.0.0
 
 flutter:
-  
-  uses-material-design: true
+    uses-material-design: true
 
-  assets:
-     - assets/
-  fonts:
-  - family: Source Code Pro
+    assets:
+        - assets/
     fonts:
-    - asset: fonts/SourceCodePro-Regular.ttf
-   
+        - family: Source Code Pro
+          fonts:
+              - asset: fonts/SourceCodePro-Regular.ttf
 # flutter_launcher_icons:
 #   android: "launcher_icon"
 #   ios: true
