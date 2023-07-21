@@ -17,16 +17,60 @@ import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
 import 'package:hd2_app/notification/Notification.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  HD2Notification.init(initScheduled: true);
+  HD2Notification.showScheduledNotification(
+      title: 'Test notifications',
+      body: "This is what it's going to look loel",
+      scheduledDate: DateTime.now().add(Duration(seconds: 15)));
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+// class MainPage extends StatefulWidget {
+//   @override
+//   _MainPageState createState() => _MainPageState();
+// }
+
+// class _MainPageState extends State<MainPage> {
+//   @override
+//   void initState() {
+//     super.initState();
+//   }
+
+// }
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>()!;
+}
+
+class _MyAppState extends State<MyApp> with ChangeNotifier {
+  @override
+  void initState() {
+    super.initState();
+    // HD2Notification.init(initScheduled: true);
+    _listenForNotifications();
+    // HD2Notification.showScheduledNotification(
+    //     title: 'Test notifications',
+    //     body: "This is what it's going to look loel",
+    //     scheduledDate: DateTime.now().add(Duration(seconds: 60)));
+  }
+
+  void _listenForNotifications() {
+    HD2Notification.onNotifications.stream.listen(onClickedNotification);
+  }
+
+  void onClickedNotification(String? payload) => print("here");
+  // Navigator.of(context).push();
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
+      create: (context) => _MyAppState(),
       child: MaterialApp(
         title: 'HackDearborn 2',
         theme: ThemeData(brightness: Brightness.dark),
@@ -34,9 +78,7 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
 
-class MyAppState extends ChangeNotifier {
   //TODO: store NavBar settings here
   FilterSettings _filterSettings = FilterSettings();
   int _amountOfButtons = 3;
@@ -93,25 +135,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-    HD2Notification.init();
-    _listenForNotifications();
-  }
-
-  void _listenForNotifications() {
-    HD2Notification.onNotifications.stream.listen(onClickedNotification);
-  }
-
-  void onClickedNotification(String? payload) => print("here");
-  // Navigator.of(context).push();
-
   int _pageIndex = 0;
 
   void _onPageChange(int pageIndex) {
-    final qrDataProvider = Provider.of<MyAppState>(context, listen: false);
+    final qrDataProvider = context.read<_MyAppState>();
     setState(() {
+      https: //dart.dev/diagnostics/non_type_as_type_argument
       _pageIndex = pageIndex;
     });
     bool isQrCodePage = (pageIndex == 2 && qrDataProvider._userQRString != "");
