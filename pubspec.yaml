@@ -25,6 +25,7 @@ dependencies:
     url_launcher: ^6.1.11
     flutter_local_notifications: ^15.1.0+1
     rxdart: ^0.27.7
+    flutter_native_timezone: ^2.0.0
 
 dev_dependencies:
     flutter_test:
