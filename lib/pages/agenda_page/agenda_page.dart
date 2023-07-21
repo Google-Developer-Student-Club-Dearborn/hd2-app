@@ -32,7 +32,7 @@ class _AgendaPageState extends State<AgendaPage> {
   //defaults to holding the names of all the views
 
   void updateIsCheckedList(List<bool> isCheckedList) {
-    final navSettingsProvider = Provider.of<MyAppState>(context, listen: false);
+    final navSettingsProvider = MyApp.of(context);
     List<String> allTrues = [];
     if (isCheckedList[0] == true) {
       allTrues.add('Scheduleview');
@@ -60,7 +60,7 @@ class _AgendaPageState extends State<AgendaPage> {
 
   @override
   Widget build(BuildContext context) {
-    final navSettingsProvider = Provider.of<MyAppState>(context);
+    final navSettingsProvider = MyApp.of(context);
     return Scaffold(
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 38, right: 0),
