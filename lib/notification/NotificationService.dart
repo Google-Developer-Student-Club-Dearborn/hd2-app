@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:hd2_app/notification/Notification.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -87,16 +88,51 @@ class HDNotificationService {
       };
 
   static Future scheduleMultipleNotifications() async {
-    final int numNotifications = 5;
+    List<HDNotificationObject> notifications = [
+      HDNotificationObject(
+          id: 1,
+          title: 'Check-In Starts',
+          body: 'Check in is at the UC entrance',
+          scheduledDate: DateTime(2023, 07, 26, 16, 45)),
+      HDNotificationObject(
+          id: 2,
+          title: 'Sponsor Fair/Check-In',
+          body: 'Sponsors are coming in',
+          scheduledDate: DateTime(2023, 07, 26, 16, 46)),
+      HDNotificationObject(
+          id: 3,
+          title: 'Breakfast',
+          body: 'Breakfast served now',
+          scheduledDate: DateTime(2023, 07, 26, 16, 46)),
+      HDNotificationObject(
+          id: 4,
+          title: 'Opening Ceremony',
+          body: "Let's meet at the B Hall",
+          scheduledDate: DateTime(2023, 07, 26, 16, 47)),
+      HDNotificationObject(
+          id: 5,
+          title: 'Welcome to HackDearborn 2',
+          body: 'Join us now',
+          scheduledDate: DateTime.now().add(Duration(seconds: 15))),
+      HDNotificationObject(
+          id: 6,
+          title: 'Disrupt Reality',
+          body: 'Join us now',
+          scheduledDate: DateTime.now().add(Duration(seconds: 30))),
+      HDNotificationObject(
+          id: 7,
+          title: 'Disrupt Reality',
+          body: 'Join us now',
+          scheduledDate: DateTime.now().add(Duration(seconds: 50))),
+    ];
 
-    final int interval = 15;
-
-    for (int i = 0; i < numNotifications; i++) {
+    for (int i = 0; i <= notifications.length; i++) {
+      final notification = notifications[i];
       await showScheduledNotification(
-        title: 'Test notifications',
-        body: "This is what it's going to look like",
-        scheduledDate: DateTime.now().add(Duration(seconds: i * interval)),
-        id: i,
+        id: notification.id,
+        title: notification.title,
+        body: notification.body,
+        scheduledDate: notification.scheduledDate,
       );
     }
   }
