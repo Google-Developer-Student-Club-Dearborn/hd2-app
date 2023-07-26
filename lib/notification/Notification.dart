@@ -44,11 +44,7 @@ class HD2Notification {
       // Initialize the timezone for the tz library
       tz.initializeTimeZones();
       tz.setLocalLocation(tz.getLocation(timeZoneName));
-
-      HD2Notification.showScheduledNotification(
-          title: 'Test notifications',
-          body: "This is what it's going to look loel",
-          scheduledDate: DateTime.now().add(Duration(seconds: 60)));
+      HD2Notification.scheduleMultipleNotifications();
     }
   }
 
@@ -73,9 +69,30 @@ class HD2Notification {
           String? title,
           String? body,
           required DateTime scheduledDate}) async =>
-      _notifications.zonedSchedule(id, title, body,
-          tz.TZDateTime.from(scheduledDate, tz.local), platformChannelSpecifics,
-          androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-          uiLocalNotificationDateInterpretation:
-              UILocalNotificationDateInterpretation.absoluteTime);
+      {
+        _notifications.zonedSchedule(
+            id,
+            title,
+            body,
+            tz.TZDateTime.from(scheduledDate, tz.local),
+            platformChannelSpecifics,
+            androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime)
+      };
+
+  static Future scheduleMultipleNotifications() async {
+    final int numNotifications = 5;
+
+    final int interval = 15;
+
+    for (int i = 0; i < numNotifications; i++) {
+      await showScheduledNotification(
+        title: 'Test notifications',
+        body: "This is what it's going to look like",
+        scheduledDate: DateTime.now().add(Duration(seconds: i * interval)),
+        id: i,
+      );
+    }
+  }
 }
