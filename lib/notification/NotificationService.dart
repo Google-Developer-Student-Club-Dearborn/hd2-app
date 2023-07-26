@@ -4,7 +4,7 @@ import 'package:rxdart/subjects.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
-class HD2NotificationService {
+class HDNotificationService {
   static final _notifications = FlutterLocalNotificationsPlugin();
 
   static final onNotifications = BehaviorSubject<String?>();
@@ -22,13 +22,7 @@ class HD2NotificationService {
               presentAlert: true, presentBadge: true, presentSound: true));
 
   static Future init({bool initScheduled = false}) async {
-    // TODO find android app icon
-    final AndroidInitializationSettings androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    final iOSSettings = DarwinInitializationSettings();
-    final settings =
-        InitializationSettings(android: androidSettings, iOS: iOSSettings);
+    final settings = getInitializationSettings();
     await _notifications.initialize(settings);
 
     if (initScheduled) {
@@ -44,8 +38,19 @@ class HD2NotificationService {
       // Initialize the timezone for the tz library
       tz.initializeTimeZones();
       tz.setLocalLocation(tz.getLocation(timeZoneName));
-      HD2NotificationService.scheduleMultipleNotifications();
+      HDNotificationService.scheduleMultipleNotifications();
     }
+  }
+
+  static InitializationSettings getInitializationSettings() {
+    // TODO find android app icon
+    final AndroidInitializationSettings androidSettings =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    final iOSSettings = DarwinInitializationSettings();
+    final settings =
+        InitializationSettings(android: androidSettings, iOS: iOSSettings);
+    return settings;
   }
 
   void requestIOSPermissions(

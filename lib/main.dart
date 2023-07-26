@@ -18,7 +18,7 @@ import 'package:hd2_app/notification/NotificationService.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  HD2NotificationService.init(initScheduled: true);
+  HDNotificationService.init(initScheduled: true);
   runApp(const MyApp());
 }
 
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> with ChangeNotifier {
   }
 
   void _listenForNotifications() {
-    HD2NotificationService.onNotifications.stream.listen(onClickedNotification);
+    HDNotificationService.onNotifications.stream.listen(onClickedNotification);
   }
 
   void onClickedNotification(String? payload) => print("here");
