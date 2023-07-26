@@ -4,7 +4,7 @@ import 'package:rxdart/subjects.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
-class HD2Notification {
+class HD2NotificationService {
   static final _notifications = FlutterLocalNotificationsPlugin();
 
   static final onNotifications = BehaviorSubject<String?>();
@@ -44,7 +44,7 @@ class HD2Notification {
       // Initialize the timezone for the tz library
       tz.initializeTimeZones();
       tz.setLocalLocation(tz.getLocation(timeZoneName));
-      HD2Notification.scheduleMultipleNotifications();
+      HD2NotificationService.scheduleMultipleNotifications();
     }
   }
 

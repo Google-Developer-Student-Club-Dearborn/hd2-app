@@ -14,11 +14,11 @@ import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
 import 'package:hd2_app/pages/information_page.dart';
 import 'package:hd2_app/pages/agenda_page/navbar.dart';
 import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
-import 'package:hd2_app/notification/Notification.dart';
+import 'package:hd2_app/notification/NotificationService.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  HD2Notification.init(initScheduled: true);
+  HD2NotificationService.init(initScheduled: true);
   runApp(const MyApp());
 }
 
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> with ChangeNotifier {
   }
 
   void _listenForNotifications() {
-    HD2Notification.onNotifications.stream.listen(onClickedNotification);
+    HD2NotificationService.onNotifications.stream.listen(onClickedNotification);
   }
 
   void onClickedNotification(String? payload) => print("here");
