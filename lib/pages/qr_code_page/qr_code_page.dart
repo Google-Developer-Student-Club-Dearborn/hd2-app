@@ -16,7 +16,7 @@ class _QrCodePageState extends State<QrCodePage> {
 
   @override
   Widget build(BuildContext context) {
-    final qrDataProvider = MyApp.of(context);
+    final qrDataProvider = Provider.of<MyAppState>(context);
     userQRString = qrDataProvider.userQRString;
     return Scaffold(
       body: Center(

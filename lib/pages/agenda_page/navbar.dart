@@ -39,7 +39,7 @@ class NavBar extends StatefulWidget {
 class NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
-    final navSettingsProvider = MyApp.of(context);
+    final navSettingsProvider = Provider.of<MyAppState>(context);
     final settings = navSettingsProvider.filterSettings;
     final amountOfButtons = navSettingsProvider.amountOfButtons;
 

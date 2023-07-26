@@ -35,7 +35,7 @@ class _InputRowState extends State<InputRow> {
 
   @override
   Widget build(BuildContext context) {
-    final qrSettingsProvider = MyApp.of(context);
+    final qrSettingsProvider = Provider.of<MyAppState>(context, listen: false);
     return Row(
       children: [
         Expanded(

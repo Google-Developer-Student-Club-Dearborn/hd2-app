@@ -93,22 +93,22 @@ class HDNotificationService {
           id: 1,
           title: 'Check-In Starts',
           body: 'Check in is at the UC entrance',
-          scheduledDate: DateTime(2023, 07, 26, 16, 45)),
+          scheduledDate: DateTime(2023, 07, 26, 17, 05)),
       HDNotificationObject(
           id: 2,
           title: 'Sponsor Fair/Check-In',
           body: 'Sponsors are coming in',
-          scheduledDate: DateTime(2023, 07, 26, 16, 46)),
+          scheduledDate: DateTime(2023, 07, 26, 17, 06)),
       HDNotificationObject(
           id: 3,
           title: 'Breakfast',
           body: 'Breakfast served now',
-          scheduledDate: DateTime(2023, 07, 26, 16, 46)),
+          scheduledDate: DateTime(2023, 07, 26, 17, 07)),
       HDNotificationObject(
           id: 4,
           title: 'Opening Ceremony',
           body: "Let's meet at the B Hall",
-          scheduledDate: DateTime(2023, 07, 26, 16, 47)),
+          scheduledDate: DateTime(2023, 07, 26, 17, 07)),
       HDNotificationObject(
           id: 5,
           title: 'Welcome to HackDearborn 2',
@@ -121,8 +121,8 @@ class HDNotificationService {
           scheduledDate: DateTime.now().add(Duration(seconds: 30))),
       HDNotificationObject(
           id: 7,
-          title: 'Disrupt Reality',
-          body: 'Join us now',
+          title: 'HackDearborn : Disrupt Reality',
+          body: 'Stay tuned',
           scheduledDate: DateTime.now().add(Duration(seconds: 50))),
     ];
 

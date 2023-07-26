@@ -22,33 +22,13 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-
-  static _MyAppState of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>()!;
-}
-
-class _MyAppState extends State<MyApp> with ChangeNotifier {
-  @override
-  void initState() {
-    super.initState();
-    _listenForNotifications();
-  }
-
-  void _listenForNotifications() {
-    HDNotificationService.onNotifications.stream.listen(onClickedNotification);
-  }
-
-  void onClickedNotification(String? payload) => print("here");
-  // Navigator.of(context).push();
-  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => _MyAppState(),
+      create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'HackDearborn 2',
         theme: ThemeData(brightness: Brightness.dark),
@@ -56,7 +36,9 @@ class _MyAppState extends State<MyApp> with ChangeNotifier {
       ),
     );
   }
+}
 
+class MyAppState extends ChangeNotifier {
   //TODO: store NavBar settings here
   FilterSettings _filterSettings = FilterSettings();
   int _amountOfButtons = 3;
@@ -116,9 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
 
   void _onPageChange(int pageIndex) {
-    final qrDataProvider = context.read<_MyAppState>();
+    final qrDataProvider = Provider.of<MyAppState>(context, listen: false);
     setState(() {
-      https: //dart.dev/diagnostics/non_type_as_type_argument
       _pageIndex = pageIndex;
     });
     bool isQrCodePage = (pageIndex == 2 && qrDataProvider._userQRString != "");
