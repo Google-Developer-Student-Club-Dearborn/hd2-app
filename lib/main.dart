@@ -19,25 +19,8 @@ import 'package:hd2_app/notification/Notification.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   HD2Notification.init(initScheduled: true);
-  HD2Notification.showScheduledNotification(
-      title: 'Test notifications',
-      body: "This is what it's going to look loel",
-      scheduledDate: DateTime.now().add(Duration(seconds: 15)));
   runApp(const MyApp());
 }
-
-// class MainPage extends StatefulWidget {
-//   @override
-//   _MainPageState createState() => _MainPageState();
-// }
-
-// class _MainPageState extends State<MainPage> {
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-// }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -53,12 +36,7 @@ class _MyAppState extends State<MyApp> with ChangeNotifier {
   @override
   void initState() {
     super.initState();
-    // HD2Notification.init(initScheduled: true);
     _listenForNotifications();
-    // HD2Notification.showScheduledNotification(
-    //     title: 'Test notifications',
-    //     body: "This is what it's going to look loel",
-    //     scheduledDate: DateTime.now().add(Duration(seconds: 60)));
   }
 
   void _listenForNotifications() {

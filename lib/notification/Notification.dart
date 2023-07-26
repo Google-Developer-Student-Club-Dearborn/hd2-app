@@ -9,7 +9,7 @@ class HD2Notification {
 
   static final onNotifications = BehaviorSubject<String?>();
 
-  static final NotificationDetails platformChannelSpecifics =
+  static const NotificationDetails platformChannelSpecifics =
       NotificationDetails(
           android: AndroidNotificationDetails(
             'channel id',
@@ -20,13 +20,6 @@ class HD2Notification {
           ),
           iOS: DarwinNotificationDetails(
               presentAlert: true, presentBadge: true, presentSound: true));
-
-  // static Future _notificationDetails() async {
-  //   return NotificationDetails(
-  //       android: AndroidNotificationDetails(),
-  //       iOS: DarwinNotificationDetails(
-  //           presentAlert: true, presentBadge: true, presentSound: true));
-  // }
 
   static Future init({bool initScheduled = false}) async {
     // TODO find android app icon
