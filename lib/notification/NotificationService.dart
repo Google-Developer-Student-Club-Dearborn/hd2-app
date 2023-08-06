@@ -1,9 +1,14 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:hd2_app/notification/Notification.dart';
+import 'package:flutter/material.dart';
+
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+
+import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
+import 'package:hd2_app/pages/agenda_page/eventexpand.dart';
 
 class HDNotificationService {
   static final _notifications = FlutterLocalNotificationsPlugin();
@@ -22,9 +27,15 @@ class HDNotificationService {
           iOS: DarwinNotificationDetails(
               presentAlert: true, presentBadge: true, presentSound: true));
 
-  static Future init({bool initScheduled = false}) async {
+  static Future init({
+    bool initScheduled = false,
+    BuildContext? context,
+  }) async {
     final settings = getInitializationSettings();
-    await _notifications.initialize(settings);
+    await _notifications.initialize(settings, onDidReceiveNotificationResponse:
+        (NotificationResponse notificationResponse) async {
+      navigateToNotificationDetails(context);
+    });
 
     if (initScheduled) {
       // Get the device's timezone using FlutterNativeTimezone
@@ -36,7 +47,6 @@ class HDNotificationService {
         timeZoneName = 'UTC'; // Fallback to UTC if there's an error
       }
 
-      // Initialize the timezone for the tz library
       tz.initializeTimeZones();
       tz.setLocalLocation(tz.getLocation(timeZoneName));
       HDNotificationService.scheduleMultipleNotifications();
@@ -48,10 +58,25 @@ class HDNotificationService {
     final AndroidInitializationSettings androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final iOSSettings = DarwinInitializationSettings();
+    final iOSSettings = DarwinInitializationSettings(
+        onDidReceiveLocalNotification:
+            (int id, String? title, String? body, String? payload) async {});
     final settings =
         InitializationSettings(android: androidSettings, iOS: iOSSettings);
     return settings;
+  }
+
+  static navigateToNotificationDetails(BuildContext? context) {
+    final appointments = getDataSource();
+    final index = 0;
+    if (context != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                SecondRoute(appointments: appointments, selectedIndex: index)),
+      );
+    }
   }
 
   void requestIOSPermissions(
@@ -93,22 +118,22 @@ class HDNotificationService {
           id: 1,
           title: 'Check-In Starts',
           body: 'Check in is at the UC entrance',
-          scheduledDate: DateTime(2023, 07, 26, 17, 05)),
+          scheduledDate: DateTime(2023, 08, 06, 17, 05)),
       HDNotificationObject(
           id: 2,
           title: 'Sponsor Fair/Check-In',
           body: 'Sponsors are coming in',
-          scheduledDate: DateTime(2023, 07, 26, 17, 06)),
+          scheduledDate: DateTime(2023, 08, 06, 17, 06)),
       HDNotificationObject(
           id: 3,
           title: 'Breakfast',
           body: 'Breakfast served now',
-          scheduledDate: DateTime(2023, 07, 26, 17, 07)),
+          scheduledDate: DateTime(2023, 08, 06, 17, 07)),
       HDNotificationObject(
           id: 4,
           title: 'Opening Ceremony',
           body: "Let's meet at the B Hall",
-          scheduledDate: DateTime(2023, 07, 26, 17, 07)),
+          scheduledDate: DateTime(2023, 08, 06, 17, 07)),
       HDNotificationObject(
           id: 5,
           title: 'Welcome to HackDearborn 2',
@@ -126,7 +151,7 @@ class HDNotificationService {
           scheduledDate: DateTime.now().add(Duration(seconds: 50))),
     ];
 
-    for (int i = 0; i <= notifications.length; i++) {
+    for (int i = 0; i < notifications.length; i++) {
       final notification = notifications[i];
       await showScheduledNotification(
         id: notification.id,
