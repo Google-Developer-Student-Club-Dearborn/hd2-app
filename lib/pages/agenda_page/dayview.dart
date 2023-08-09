@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hd2_app/shared/getHDEvents.dart';
+import 'package:hd2_app/services/hdevent_service.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 
@@ -13,7 +13,7 @@ class Dayview extends StatelessWidget {
     void calendarTapped(CalendarTapDetails calendarTapDetails) {
       if (calendarTapDetails.targetElement == CalendarElement.appointment) {
         final tappedAppointment = calendarTapDetails.appointments![0];
-        final hdevents = getHDEvents();
+        final hdevents = HDEventsService();
         final index = tappedAppointment.index;
         Navigator.push(
           context,
@@ -28,7 +28,7 @@ class Dayview extends StatelessWidget {
       view: CalendarView.day,
       initialDisplayDate: DateTime(2023, 10, 21, 10),
       showCurrentTimeIndicator: true,
-      dataSource: HDEventsSource(getHDEvents()),
+      dataSource: HDEventsSource(HDEventsService()),
       onTap: calendarTapped,
     );
   }

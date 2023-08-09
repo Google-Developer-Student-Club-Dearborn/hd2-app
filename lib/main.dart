@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
+import 'package:hd2_app/services/hdnotification_service.dart';
 import 'package:provider/provider.dart';
 
 // pub.dev libraries
@@ -15,8 +16,6 @@ import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
 import 'package:hd2_app/pages/information_page.dart';
 import 'package:hd2_app/pages/agenda_page/navbar.dart';
 import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
-import 'package:hd2_app/services/notification/NotificationService.dart';
-import 'package:hd2_app/pages/notifications_page/NotificationsPage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: navigatorKey,
         routes: {
           '/qr_code': (context) => QrCodePage(),
-          '/second_route': (context) =>
+          '/event_details': (context) =>
               EventDetails(hdevents: [], selectedIndex: 0),
         },
       ),

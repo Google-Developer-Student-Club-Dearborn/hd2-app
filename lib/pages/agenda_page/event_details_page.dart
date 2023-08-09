@@ -1,8 +1,15 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hd2_app/components/event_detail_card.dart';
-import 'package:hd2_app/shared/HDEvent.dart';
-import 'package:hd2_app/shared/RouteArguments.dart';
+import 'package:hd2_app/models/HDEvent.dart';
 import 'package:flutter/material.dart';
+
+class EventDetailPageArguments {
+  int selectedIndex;
+  final List<HDEvent> hdevents;
+
+  EventDetailPageArguments(
+      {required this.selectedIndex, required this.hdevents});
+}
 
 class EventDetails extends StatefulWidget {
   final List<HDEvent> hdevents;
@@ -19,8 +26,8 @@ class _EventDetailsState extends State<EventDetails> {
   Widget build(BuildContext context) {
     const theme = Color.fromARGB(256, 0, 122, 255);
 
-    RouteArguments? args =
-        ModalRoute.of(context)?.settings.arguments as RouteArguments?;
+    EventDetailPageArguments? args =
+        ModalRoute.of(context)?.settings.arguments as EventDetailPageArguments?;
     HDEvent? hdevent = _getSelectedEvent(args);
 
     return Scaffold(
@@ -57,7 +64,7 @@ class _EventDetailsState extends State<EventDetails> {
     );
   }
 
-  void navigateToPreviousEvent(RouteArguments? args) {
+  void navigateToPreviousEvent(EventDetailPageArguments? args) {
     if (widget.selectedIndex > 0) {
       setState(() {
         widget.selectedIndex--;
@@ -71,7 +78,7 @@ class _EventDetailsState extends State<EventDetails> {
     }
   }
 
-  void navigateToNextEvent(RouteArguments? args) {
+  void navigateToNextEvent(EventDetailPageArguments? args) {
     if (widget.selectedIndex < widget.hdevents.length - 1) {
       setState(() {
         widget.selectedIndex++;
@@ -85,7 +92,7 @@ class _EventDetailsState extends State<EventDetails> {
     }
   }
 
-  HDEvent? _getSelectedEvent(RouteArguments? args) {
+  HDEvent? _getSelectedEvent(EventDetailPageArguments? args) {
     if (widget.selectedIndex >= 0 &&
         widget.selectedIndex < widget.hdevents.length) {
       return widget.hdevents[widget.selectedIndex];

@@ -2,7 +2,7 @@ import 'package:hd2_app/models/HDEvent.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
 
-List<HDEvent> getHDEvents() {
+List<HDEvent> HDEventsService() {
   final List<HDEvent> hdevents = <HDEvent>[];
   final DateTime today = DateTime.now();
   final DateTime startTime = DateTime(today.year, today.month, today.day, 10);

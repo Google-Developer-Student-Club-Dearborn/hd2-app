@@ -1,10 +1,6 @@
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:hd2_app/models/HDEvent.dart';
 import 'package:hd2_app/pages/agenda_page/timechips.dart';
-import 'package:hd2_app/shared/HDEvent.dart';
-import 'package:hd2_app/shared/RouteArguments.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:hd2_app/shared/getHDEvents.dart';
 
 class EventDetailCard extends StatelessWidget {
   const EventDetailCard({

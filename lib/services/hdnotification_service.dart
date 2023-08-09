@@ -2,8 +2,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:hd2_app/models/HDEvent.dart';
 import 'package:flutter/material.dart';
-import 'package:hd2_app/shared/RouteArguments.dart';
-import 'package:hd2_app/shared/getHDEvents.dart';
+import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
+import 'package:hd2_app/services/hdevent_service.dart';
 
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -68,11 +68,12 @@ class HDNotificationService {
 
   static navigateToNotificationDetails(
       BuildContext? context, GlobalKey<NavigatorState>? navigatorKey, int? id) {
-    final events = getHDEvents();
+    final events = HDEventsService();
     if (context != null && navigatorKey != null && id != null) {
       navigatorKey.currentState?.pushNamed(
-        '/second_route',
-        arguments: RouteArguments(selectedIndex: id, hdevents: events),
+        '/event_details',
+        arguments:
+            EventDetailPageArguments(selectedIndex: id, hdevents: events),
       );
     }
   }
@@ -111,7 +112,7 @@ class HDNotificationService {
       };
 
   static Future scheduleMultipleNotifications() async {
-    List<HDEvent> hdevents = getHDEvents();
+    List<HDEvent> hdevents = HDEventsService();
     hdevents.add(
       HDEvent(
         'Welcome to Hack Dearborn 2',
