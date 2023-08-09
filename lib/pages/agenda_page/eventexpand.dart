@@ -4,6 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
 
+class RouteArguments {
+  int selectedIndex;
+  final List<Meeting> appointments;
+
+  RouteArguments({required this.selectedIndex, required this.appointments});
+}
+
 class SecondRoute extends StatefulWidget {
   final List<Meeting> appointments;
   int selectedIndex;
@@ -18,10 +25,10 @@ class _SecondRouteState extends State<SecondRoute> {
   @override
   Widget build(BuildContext context) {
     const theme = Color.fromARGB(256, 0, 122, 255);
-    Meeting? appointment = (widget.selectedIndex >= 0 &&
-            widget.selectedIndex < widget.appointments.length)
-        ? widget.appointments[widget.selectedIndex]
-        : null;
+
+    RouteArguments? args =
+        ModalRoute.of(context)?.settings.arguments as RouteArguments?;
+    Meeting? appointment = _getAppointment(args);
 
     return Scaffold(
       appBar: AppBar(
@@ -45,29 +52,9 @@ class _SecondRouteState extends State<SecondRoute> {
         onTabChange: (index) {
           if (index == 0) {
             // Logic for the "Previous" button
-            if (widget.selectedIndex > 0) {
-              widget.selectedIndex = widget.selectedIndex - 1;
-
-              setState(() {
-                appointment = (widget.selectedIndex >= 0 &&
-                        widget.selectedIndex < widget.appointments.length)
-                    ? widget.appointments[widget.selectedIndex]
-                    : null;
-              });
-            } else {
-              print('Reached the start');
-            }
+            navigateToPreviousAppointment(args);
           } else if (index == 1) {
-            // Logic for the "Next" button
-            if (widget.selectedIndex < widget.appointments.length - 1) {
-              widget.selectedIndex = widget.selectedIndex + 1;
-              setState(() {
-                appointment = (widget.selectedIndex >= 0 &&
-                        widget.selectedIndex < widget.appointments.length)
-                    ? widget.appointments[widget.selectedIndex]
-                    : null;
-              });
-            }
+            navigateToNextAppointment(args);
           }
         },
         tabs: const [
@@ -76,6 +63,48 @@ class _SecondRouteState extends State<SecondRoute> {
         ],
       ),
     );
+  }
+
+  void navigateToPreviousAppointment(RouteArguments? args) {
+    if (widget.selectedIndex > 0) {
+      setState(() {
+        widget.selectedIndex--;
+      });
+    } else if (args != null && args.selectedIndex > 0) {
+      setState(() {
+        args.selectedIndex--;
+      });
+    } else {
+      print('Reached the start');
+    }
+  }
+
+  void navigateToNextAppointment(RouteArguments? args) {
+    if (widget.selectedIndex < widget.appointments.length - 1) {
+      setState(() {
+        widget.selectedIndex++;
+      });
+    } else if (args != null &&
+        args.selectedIndex < args.appointments.length - 1) {
+      setState(() {
+        args.selectedIndex++;
+      });
+    } else {
+      print("Reached the end");
+    }
+  }
+
+  Meeting? _getAppointment(RouteArguments? args) {
+    if (widget.selectedIndex >= 0 &&
+        widget.selectedIndex < widget.appointments.length) {
+      return widget.appointments[widget.selectedIndex];
+    } else if (args != null &&
+        args.selectedIndex >= 0 &&
+        args.selectedIndex < args.appointments.length) {
+      return args.appointments[args.selectedIndex];
+    } else {
+      return null;
+    }
   }
 }
 

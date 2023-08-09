@@ -27,14 +27,15 @@ class HDNotificationService {
           iOS: DarwinNotificationDetails(
               presentAlert: true, presentBadge: true, presentSound: true));
 
-  static Future init({
-    bool initScheduled = false,
-    BuildContext? context,
-  }) async {
+  static Future init(
+      {bool initScheduled = false,
+      BuildContext? context,
+      GlobalKey<NavigatorState>? navigatorKey}) async {
     final settings = getInitializationSettings();
     await _notifications.initialize(settings, onDidReceiveNotificationResponse:
         (NotificationResponse notificationResponse) async {
-      navigateToNotificationDetails(context);
+      navigateToNotificationDetails(
+          context, navigatorKey, notificationResponse.id);
     });
 
     if (initScheduled) {
@@ -66,15 +67,14 @@ class HDNotificationService {
     return settings;
   }
 
-  static navigateToNotificationDetails(BuildContext? context) {
+  static navigateToNotificationDetails(
+      BuildContext? context, GlobalKey<NavigatorState>? navigatorKey, int? id) {
     final appointments = getDataSource();
-    final index = 0;
-    if (context != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                SecondRoute(appointments: appointments, selectedIndex: index)),
+    if (context != null && navigatorKey != null && id != null) {
+      navigatorKey.currentState?.pushNamed(
+        '/second_route',
+        arguments:
+            RouteArguments(selectedIndex: id, appointments: appointments),
       );
     }
   }
@@ -118,22 +118,22 @@ class HDNotificationService {
           id: 1,
           title: 'Check-In Starts',
           body: 'Check in is at the UC entrance',
-          scheduledDate: DateTime(2023, 08, 06, 17, 05)),
+          scheduledDate: DateTime(2023, 08, 09, 22, 05)),
       HDNotificationObject(
           id: 2,
           title: 'Sponsor Fair/Check-In',
           body: 'Sponsors are coming in',
-          scheduledDate: DateTime(2023, 08, 06, 17, 06)),
+          scheduledDate: DateTime(2023, 08, 09, 22, 06)),
       HDNotificationObject(
           id: 3,
           title: 'Breakfast',
           body: 'Breakfast served now',
-          scheduledDate: DateTime(2023, 08, 06, 17, 07)),
+          scheduledDate: DateTime(2023, 08, 09, 22, 07)),
       HDNotificationObject(
           id: 4,
           title: 'Opening Ceremony',
           body: "Let's meet at the B Hall",
-          scheduledDate: DateTime(2023, 08, 06, 17, 07)),
+          scheduledDate: DateTime(2023, 08, 09, 22, 07)),
       HDNotificationObject(
           id: 5,
           title: 'Welcome to HackDearborn 2',
