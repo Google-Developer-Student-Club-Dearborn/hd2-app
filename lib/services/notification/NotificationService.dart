@@ -1,16 +1,13 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'package:hd2_app/services/notification/Notification.dart';
+import 'package:hd2_app/models/HDEvent.dart';
 import 'package:flutter/material.dart';
-import 'package:hd2_app/shared/HDEvent.dart';
 import 'package:hd2_app/shared/RouteArguments.dart';
+import 'package:hd2_app/shared/getHDEvents.dart';
 
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
-
-import 'package:hd2_app/shared/getHDEvents.dart';
-import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 
 class HDNotificationService {
   static final _notifications = FlutterLocalNotificationsPlugin();

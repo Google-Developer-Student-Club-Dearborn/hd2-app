@@ -1,4 +1,4 @@
-import 'package:hd2_app/shared/HDEvent.dart';
+import 'package:hd2_app/models/HDEvent.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
 

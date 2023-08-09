@@ -1,4 +1,4 @@
-import 'package:hd2_app/shared/HDEvent.dart';
+import 'package:hd2_app/models/HDEvent.dart';
 
 class RouteArguments {
   int selectedIndex;
