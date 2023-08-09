@@ -9,7 +9,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
-import 'package:hd2_app/pages/agenda_page/eventexpand.dart';
+import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 
 class HDNotificationService {
   static final _notifications = FlutterLocalNotificationsPlugin();
@@ -45,8 +45,8 @@ class HDNotificationService {
       try {
         timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
       } catch (e) {
-        // Handle any potential errors when getting the timezone
-        timeZoneName = 'UTC'; // Fallback to UTC if there's an error
+        // Fallback to UTC if there's an error
+        timeZoneName = 'UTC';
       }
 
       tz.initializeTimeZones();
@@ -70,12 +70,11 @@ class HDNotificationService {
 
   static navigateToNotificationDetails(
       BuildContext? context, GlobalKey<NavigatorState>? navigatorKey, int? id) {
-    final appointments = getDataSource();
+    final events = getHDEvents();
     if (context != null && navigatorKey != null && id != null) {
       navigatorKey.currentState?.pushNamed(
         '/second_route',
-        arguments:
-            RouteArguments(selectedIndex: id, appointments: appointments),
+        arguments: RouteArguments(selectedIndex: id, hdevents: events),
       );
     }
   }

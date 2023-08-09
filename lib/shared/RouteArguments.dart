@@ -1,8 +1,8 @@
-import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
+import 'package:hd2_app/shared/HDEvent.dart';
 
 class RouteArguments {
   int selectedIndex;
-  final List<Meeting> appointments;
+  final List<HDEvent> hdevents;
 
-  RouteArguments({required this.selectedIndex, required this.appointments});
+  RouteArguments({required this.selectedIndex, required this.hdevents});
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hd2_app/pages/agenda_page/eventexpand.dart';
+import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 import 'package:provider/provider.dart';
 
 // pub.dev libraries
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/qr_code': (context) => QrCodePage(),
           '/second_route': (context) =>
-              EventDetails(appointments: [], selectedIndex: 0),
+              EventDetails(hdevents: [], selectedIndex: 0),
         },
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hd2_app/pages/agenda_page/timechips.dart';
+import 'package:hd2_app/shared/HDEvent.dart';
 import 'package:hd2_app/shared/RouteArguments.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,11 @@ class EventDetailCard extends StatelessWidget {
   const EventDetailCard({
     super.key,
     required this.theme,
-    required this.appointment,
+    required this.hdevent,
   });
 
   final Color theme;
-  final Meeting? appointment;
+  final HDEvent? hdevent;
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +27,18 @@ class EventDetailCard extends StatelessWidget {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              appointment != null
+              hdevent != null
                   ? Card(
                       color: const Color(0xff007aff).withOpacity(0.725),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Column(
                           children: [
-                            appointment != null
-                                ? BigCard(eventName: appointment!.eventName)
-                                : const Text('No appointment selected'),
+                            hdevent != null
+                                ? BigCard(eventName: hdevent!.eventName)
+                                : const Text('No event selected'),
                             const SizedBox(height: 20),
-                            TimeChips(
-                                from: appointment!.from, to: appointment!.to),
+                            TimeChips(from: hdevent!.from, to: hdevent!.to),
                             const SizedBox(height: 20),
                             Card(
                               color: const Color(0xff4169E1).withOpacity(0.0),
@@ -52,7 +52,7 @@ class EventDetailCard extends StatelessWidget {
                                     horizontal: 15, vertical: 5),
                                 child: Center(
                                   child: Text(
-                                    appointment!.description,
+                                    hdevent!.description,
                                     style: const TextStyle(
                                       fontFamily: 'Source Code Pro',
                                     ),

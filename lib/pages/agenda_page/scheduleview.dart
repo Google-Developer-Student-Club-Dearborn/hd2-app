@@ -1,8 +1,7 @@
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
+import 'package:hd2_app/shared/getHDEvents.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:hd2_app/pages/agenda_page/eventexpand.dart';
+import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 
 class ScheduleView extends StatelessWidget {
   const ScheduleView({
@@ -14,13 +13,13 @@ class ScheduleView extends StatelessWidget {
     void calendarTapped(CalendarTapDetails calendarTapDetails) {
       if (calendarTapDetails.targetElement == CalendarElement.appointment) {
         final tappedAppointment = calendarTapDetails.appointments![0];
-        final appointments = getDataSource();
+        final hdevents = getHDEvents();
         final index = tappedAppointment.index;
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => EventDetails(
-                  appointments: appointments, selectedIndex: index)),
+              builder: (context) =>
+                  EventDetails(hdevents: hdevents, selectedIndex: index)),
         );
       }
     }
@@ -28,7 +27,7 @@ class ScheduleView extends StatelessWidget {
     return SfCalendar(
       view: CalendarView.schedule,
       initialDisplayDate: DateTime(2023, 10, 21, 10),
-      dataSource: MeetingDataSource(getDataSource()),
+      dataSource: HDEventsSource(getHDEvents()),
       scheduleViewSettings: const ScheduleViewSettings(
         appointmentItemHeight: 70,
       ),

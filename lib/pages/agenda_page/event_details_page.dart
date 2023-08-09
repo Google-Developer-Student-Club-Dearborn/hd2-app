@@ -1,16 +1,14 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hd2_app/components/event_detail_card.dart';
-import 'package:hd2_app/pages/agenda_page/timechips.dart';
+import 'package:hd2_app/shared/HDEvent.dart';
 import 'package:hd2_app/shared/RouteArguments.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
 
 class EventDetails extends StatefulWidget {
-  final List<Meeting> appointments;
+  final List<HDEvent> hdevents;
   int selectedIndex;
 
-  EventDetails({required this.appointments, required this.selectedIndex});
+  EventDetails({required this.hdevents, required this.selectedIndex});
 
   @override
   State<EventDetails> createState() => _EventDetailsState();
@@ -23,7 +21,7 @@ class _EventDetailsState extends State<EventDetails> {
 
     RouteArguments? args =
         ModalRoute.of(context)?.settings.arguments as RouteArguments?;
-    Meeting? appointment = _getAppointment(args);
+    HDEvent? hdevent = _getSelectedEvent(args);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +35,7 @@ class _EventDetailsState extends State<EventDetails> {
           ),
         ],
       ),
-      body: EventDetailCard(theme: theme, appointment: appointment),
+      body: EventDetailCard(theme: theme, hdevent: hdevent),
       bottomNavigationBar: GNav(
         gap: 8,
         activeColor: const Color.fromARGB(255, 255, 102, 196),
@@ -46,9 +44,9 @@ class _EventDetailsState extends State<EventDetails> {
         curve: Curves.easeOutExpo,
         onTabChange: (index) {
           if (index == 0) {
-            navigateToPreviousAppointment(args);
+            navigateToPreviousEvent(args);
           } else if (index == 1) {
-            navigateToNextAppointment(args);
+            navigateToNextEvent(args);
           }
         },
         tabs: const [
@@ -59,7 +57,7 @@ class _EventDetailsState extends State<EventDetails> {
     );
   }
 
-  void navigateToPreviousAppointment(RouteArguments? args) {
+  void navigateToPreviousEvent(RouteArguments? args) {
     if (widget.selectedIndex > 0) {
       setState(() {
         widget.selectedIndex--;
@@ -73,13 +71,12 @@ class _EventDetailsState extends State<EventDetails> {
     }
   }
 
-  void navigateToNextAppointment(RouteArguments? args) {
-    if (widget.selectedIndex < widget.appointments.length - 1) {
+  void navigateToNextEvent(RouteArguments? args) {
+    if (widget.selectedIndex < widget.hdevents.length - 1) {
       setState(() {
         widget.selectedIndex++;
       });
-    } else if (args != null &&
-        args.selectedIndex < args.appointments.length - 1) {
+    } else if (args != null && args.selectedIndex < args.hdevents.length - 1) {
       setState(() {
         args.selectedIndex++;
       });
@@ -88,14 +85,14 @@ class _EventDetailsState extends State<EventDetails> {
     }
   }
 
-  Meeting? _getAppointment(RouteArguments? args) {
+  HDEvent? _getSelectedEvent(RouteArguments? args) {
     if (widget.selectedIndex >= 0 &&
-        widget.selectedIndex < widget.appointments.length) {
-      return widget.appointments[widget.selectedIndex];
+        widget.selectedIndex < widget.hdevents.length) {
+      return widget.hdevents[widget.selectedIndex];
     } else if (args != null &&
         args.selectedIndex >= 0 &&
-        args.selectedIndex < args.appointments.length) {
-      return args.appointments[args.selectedIndex];
+        args.selectedIndex < args.hdevents.length) {
+      return args.hdevents[args.selectedIndex];
     } else {
       return null;
     }
