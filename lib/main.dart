@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
+import 'package:hd2_app/pages/notifications/notifications_list_page.dart';
 import 'package:hd2_app/services/hdnotification_service.dart';
 import 'package:provider/provider.dart';
 
@@ -147,8 +148,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     return const AgendaPage();
                   case 1:
                     return const InformationPage();
-                  default:
+                  case 2:
                     return const QrCodePage();
+                  default:
+                    return NotificationsListPage();
                 }
               },
             ),
