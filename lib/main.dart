@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hd2_app/pages/agenda_page/eventexpand.dart';
 import 'package:provider/provider.dart';
 
 // pub.dev libraries
@@ -15,6 +16,7 @@ import 'package:hd2_app/pages/information_page.dart';
 import 'package:hd2_app/pages/agenda_page/navbar.dart';
 import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
 import 'package:hd2_app/notification/NotificationService.dart';
+import 'package:hd2_app/pages/notifications_page/NotificationsPage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,12 +29,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+    HDNotificationService.init(
+        initScheduled: true, context: context, navigatorKey: navigatorKey);
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'HackDearborn 2',
         theme: ThemeData(brightness: Brightness.dark),
         home: const MyHomePage(title: 'HackDearborn 2'),
+        navigatorKey: navigatorKey,
+        routes: {
+          '/qr_code': (context) => QrCodePage(),
+          '/second_route': (context) =>
+              SecondRoute(appointments: [], selectedIndex: 0),
+        },
       ),
     );
   }
