@@ -1,15 +1,9 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hd2_app/pages/agenda_page/timechips.dart';
+import 'package:hd2_app/shared/RouteArguments.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
-
-class RouteArguments {
-  int selectedIndex;
-  final List<Meeting> appointments;
-
-  RouteArguments({required this.selectedIndex, required this.appointments});
-}
 
 class SecondRoute extends StatefulWidget {
   final List<Meeting> appointments;
