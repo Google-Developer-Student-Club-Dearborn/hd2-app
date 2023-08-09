@@ -8,7 +8,7 @@ import 'package:rxdart/subjects.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
-import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
+import 'package:hd2_app/shared/getHDEvents.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 
 class HDNotificationService {

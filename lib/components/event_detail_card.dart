@@ -4,7 +4,7 @@ import 'package:hd2_app/shared/HDEvent.dart';
 import 'package:hd2_app/shared/RouteArguments.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
+import 'package:hd2_app/shared/getHDEvents.dart';
 
 class EventDetailCard extends StatelessWidget {
   const EventDetailCard({

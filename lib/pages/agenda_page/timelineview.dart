@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
+import 'package:hd2_app/shared/getHDEvents.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 
