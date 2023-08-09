@@ -15,7 +15,7 @@ import 'package:hd2_app/pages/agenda_page/agenda_page.dart';
 import 'package:hd2_app/pages/information_page.dart';
 import 'package:hd2_app/pages/agenda_page/navbar.dart';
 import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
-import 'package:hd2_app/notification/NotificationService.dart';
+import 'package:hd2_app/services/notification/NotificationService.dart';
 import 'package:hd2_app/pages/notifications_page/NotificationsPage.dart';
 
 void main() {
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/qr_code': (context) => QrCodePage(),
           '/second_route': (context) =>
-              SecondRoute(appointments: [], selectedIndex: 0),
+              EventDetails(appointments: [], selectedIndex: 0),
         },
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hd2_app/pages/agenda_page/getDataSource.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:hd2_app/pages/agenda_page/eventexpand.dart';
+import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 
 class Dayview extends StatelessWidget {
   const Dayview({
@@ -18,7 +18,7 @@ class Dayview extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => SecondRoute(
+              builder: (context) => EventDetails(
                   appointments: appointments, selectedIndex: index)),
         );
       }

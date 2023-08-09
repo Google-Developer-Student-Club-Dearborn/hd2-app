@@ -18,7 +18,7 @@ class Timeline extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => SecondRoute(
+              builder: (context) => EventDetails(
                   appointments: appointments, selectedIndex: index)),
         );
       }
