@@ -13,7 +13,8 @@ class Dayview extends StatelessWidget {
     void calendarTapped(CalendarTapDetails calendarTapDetails) {
       if (calendarTapDetails.targetElement == CalendarElement.appointment) {
         final tappedAppointment = calendarTapDetails.appointments![0];
-        final hdevents = HDEventsService();
+        final HDEventsService eventsService = HDEventsService();
+        final hdevents = eventsService.getAllEvents();
         final index = tappedAppointment.index;
         Navigator.push(
           context,
@@ -24,11 +25,13 @@ class Dayview extends StatelessWidget {
       }
     }
 
+    final HDEventsService eventsService = HDEventsService();
+
     return SfCalendar(
       view: CalendarView.day,
       initialDisplayDate: DateTime(2023, 10, 21, 10),
       showCurrentTimeIndicator: true,
-      dataSource: HDEventsSource(HDEventsService()),
+      dataSource: HDEventsSource(eventsService.getAllEvents()),
       onTap: calendarTapped,
     );
   }

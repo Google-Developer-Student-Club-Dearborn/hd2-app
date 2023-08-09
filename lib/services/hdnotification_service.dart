@@ -68,7 +68,8 @@ class HDNotificationService {
 
   static navigateToNotificationDetails(
       BuildContext? context, GlobalKey<NavigatorState>? navigatorKey, int? id) {
-    final events = HDEventsService();
+    final HDEventsService eventsService = HDEventsService();
+    final events = eventsService.getAllEvents();
     if (context != null && navigatorKey != null && id != null) {
       navigatorKey.currentState?.pushNamed(
         '/event_details',
@@ -112,7 +113,8 @@ class HDNotificationService {
       };
 
   static Future scheduleMultipleNotifications() async {
-    List<HDEvent> hdevents = HDEventsService();
+    final HDEventsService eventsService = HDEventsService();
+    final hdevents = eventsService.getAllEvents();
     hdevents.add(
       HDEvent(
         'Welcome to Hack Dearborn 2',

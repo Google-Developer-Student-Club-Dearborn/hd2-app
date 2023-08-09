@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:hd2_app/models/HDEvent.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 import 'package:hd2_app/services/hdevent_service.dart';
 
-class NotificationsListPage extends StatelessWidget {
+class NotificationsListPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: NotificationList(),
-    );
-  }
+  _NotificationsListPageState createState() => _NotificationsListPageState();
 }
 
-class NotificationList extends StatelessWidget {
+class _NotificationsListPageState extends State<NotificationsListPage> {
+  final HDEventsService eventsService = HDEventsService();
+  List<HDEvent> filteredEvents = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredEvents = eventsService.getFilteredEvents();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    filteredEvents = eventsService.getFilteredEvents();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final hdevents = HDEventsService();
-
     return ListView.builder(
-      itemCount: hdevents.length,
+      itemCount: filteredEvents.length,
       itemBuilder: (context, index) {
-        final notification = hdevents[index];
+        final notification = filteredEvents[index];
 
         return InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      EventDetails(hdevents: hdevents, selectedIndex: index)),
+                  builder: (context) => EventDetails(
+                      hdevents: filteredEvents, selectedIndex: index)),
             );
           },
           child: Container(

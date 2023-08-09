@@ -13,7 +13,8 @@ class ScheduleView extends StatelessWidget {
     void calendarTapped(CalendarTapDetails calendarTapDetails) {
       if (calendarTapDetails.targetElement == CalendarElement.appointment) {
         final tappedAppointment = calendarTapDetails.appointments![0];
-        final hdevents = HDEventsService();
+        final HDEventsService eventsService = HDEventsService();
+        final hdevents = eventsService.getAllEvents();
         final index = tappedAppointment.index;
         Navigator.push(
           context,
@@ -24,10 +25,12 @@ class ScheduleView extends StatelessWidget {
       }
     }
 
+    final HDEventsService eventsService = HDEventsService();
+
     return SfCalendar(
       view: CalendarView.schedule,
       initialDisplayDate: DateTime(2023, 10, 21, 10),
-      dataSource: HDEventsSource(HDEventsService()),
+      dataSource: HDEventsSource(eventsService.getAllEvents()),
       scheduleViewSettings: const ScheduleViewSettings(
         appointmentItemHeight: 70,
       ),
