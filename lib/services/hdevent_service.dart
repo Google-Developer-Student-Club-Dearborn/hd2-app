@@ -1,3 +1,4 @@
+import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/models/HDEvent.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
@@ -308,16 +309,23 @@ class HDEventsService {
     return hdevents;
   }
 
+/* 
+  the notifications are fired 10 mins before the scheduled start time of the event
+  so get the events even before their scheduled time if the notification time (10 minutes before the event) has already passed 
+*/
   List<HDEvent> getFilteredEvents() {
     final DateTime currentDate = DateTime.now();
     final List<HDEvent> allEvents = getAllEvents();
 
     final List<HDEvent> filteredEvents = allEvents.where((event) {
-      return event.from.isBefore(currentDate) ||
+      DateTime notificationTime = event.from
+          .subtract(Duration(minutes: HDConstants.NOTIFICATION_OFFSET));
+      return notificationTime.isBefore(currentDate) ||
+          event.from.isBefore(currentDate) ||
           event.from.isAtSameMomentAs(currentDate);
     }).toList();
 
-    return filteredEvents;
+    return filteredEvents.reversed.toList();
   }
 }
 
