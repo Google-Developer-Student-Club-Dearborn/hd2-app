@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
 import 'package:hd2_app/pages/notifications/notifications_list_page.dart';
 import 'package:hd2_app/services/hdnotification_service.dart';
@@ -41,8 +42,10 @@ class MyApp extends StatelessWidget {
         home: const MyHomePage(title: 'HackDearborn 2'),
         navigatorKey: navigatorKey,
         routes: {
-          '/qr_code': (context) => QrCodePage(),
-          '/event_details': (context) =>
+          HDConstants.HOME_PAGE: (context) =>
+              MyHomePage(title: 'HackDearborn 2'),
+          HDConstants.QR_CODE_PAGE: (context) => QrCodePage(),
+          HDConstants.EVENT_DETAILS_PAGE: (context) =>
               EventDetails(hdevents: [], selectedIndex: 0),
         },
       ),
