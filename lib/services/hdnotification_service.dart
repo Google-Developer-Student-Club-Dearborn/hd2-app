@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/models/HDEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
@@ -71,11 +72,18 @@ class HDNotificationService {
     final HDEventsService eventsService = HDEventsService();
     final events = eventsService.getAllEvents();
     if (context != null && navigatorKey != null && id != null) {
-      navigatorKey.currentState?.pushNamed(
-        '/event_details',
-        arguments:
-            EventDetailPageArguments(selectedIndex: id, hdevents: events),
-      );
+      if (id == HDConstants.NOTIFICATION_1_ID ||
+          id == HDConstants.NOTIFICATION_2_ID) {
+        navigatorKey.currentState?.pushNamed(
+          HDConstants.HOME_PAGE,
+        );
+      } else {
+        navigatorKey.currentState?.pushNamed(
+          HDConstants.EVENT_DETAILS_PAGE,
+          arguments:
+              EventDetailPageArguments(selectedIndex: id, hdevents: events),
+        );
+      }
     }
   }
 
@@ -112,9 +120,18 @@ class HDNotificationService {
                 UILocalNotificationDateInterpretation.absoluteTime)
       };
 
-  static Future scheduleMultipleNotifications() async {
+  static Future<void> scheduleMultipleNotifications() async {
+    final List<HDEvent> eventsToSchedule = _generateNotifications();
+
+    for (final event in eventsToSchedule) {
+      await _scheduleNotification(event);
+    }
+  }
+
+  static List<HDEvent> _generateNotifications() {
     final HDEventsService eventsService = HDEventsService();
-    final hdevents = eventsService.getAllEvents();
+    final List<HDEvent> hdevents = eventsService.getAllEvents();
+
     hdevents.add(
       HDEvent(
         'Welcome to Hack Dearborn 2',
@@ -123,9 +140,10 @@ class HDNotificationService {
         Colors.blue,
         false,
         'Stay tuned',
-        50,
+        HDConstants.NOTIFICATION_1_ID,
       ),
     );
+
     hdevents.add(
       HDEvent(
         'HackDearborn : Disrupt Reality',
@@ -134,16 +152,22 @@ class HDNotificationService {
         Colors.blue,
         false,
         'Join us now',
-        60,
+        HDConstants.NOTIFICATION_2_ID,
       ),
     );
-    for (int i = 0; i < hdevents.length; i++) {
-      final hdevent = hdevents[i];
-      await showScheduledNotification(
-          id: hdevent.index,
-          title: hdevent.eventName,
-          body: hdevent.description,
-          scheduledDate: hdevent.from.subtract(Duration(minutes: 10)));
-    }
+
+    return hdevents;
+  }
+
+  static Future<void> _scheduleNotification(HDEvent event) async {
+    final DateTime scheduledDate =
+        event.from.subtract(Duration(minutes: HDConstants.NOTIFICATION_OFFSET));
+
+    await showScheduledNotification(
+      id: event.index,
+      title: event.eventName,
+      body: event.description,
+      scheduledDate: scheduledDate,
+    );
   }
 }
