@@ -26,6 +26,15 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (filteredEvents.isEmpty) {
+      return Center(
+        child: Text(
+          'All caught up',
+          style: TextStyle(fontSize: 16),
+        ),
+      );
+    }
+
     return ListView.builder(
       itemCount: filteredEvents.length,
       itemBuilder: (context, index) {
