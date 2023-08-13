@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
+import 'package:hd2_app/pages/notifications/notification_detail_page.dart';
 import 'package:hd2_app/pages/notifications/notifications_list_page.dart';
 import 'package:hd2_app/services/hdnotification_service.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,8 @@ class MyApp extends StatelessWidget {
           HDConstants.QR_CODE_PAGE: (context) => QrCodePage(),
           HDConstants.EVENT_DETAILS_PAGE: (context) =>
               EventDetails(hdevents: [], selectedIndex: 0),
+          HDConstants.NOTIFICATION_DETAIL_PAGE: (context) =>
+              NotificationDetail(hdevents: [], selectedIndex: 0),
         },
       ),
     );
