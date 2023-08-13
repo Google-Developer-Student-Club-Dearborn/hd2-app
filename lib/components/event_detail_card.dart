@@ -7,65 +7,62 @@ class EventDetailCard extends StatelessWidget {
     super.key,
     required this.theme,
     required this.hdevent,
+    this.isDateShown = true,
   });
 
   final Color theme;
   final HDEvent? hdevent;
+  final bool isDateShown;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: theme.withOpacity(0.0),
-      child:
-          // Center and SingleChildScrollView starts here
-          Center(
+      child: Center(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              hdevent != null
-                  ? Card(
-                      color: const Color(0xff007aff).withOpacity(0.725),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
-                          children: [
-                            hdevent != null
-                                ? BigCard(eventName: hdevent!.eventName)
-                                : const Text('No event selected'),
-                            const SizedBox(height: 20),
-                            TimeChips(from: hdevent!.from, to: hdevent!.to),
-                            const SizedBox(height: 20),
-                            Card(
-                              color: const Color(0xff4169E1).withOpacity(0.0),
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 50, vertical: 5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5),
-                                child: Center(
-                                  child: Text(
-                                    hdevent!.description,
-                                    style: const TextStyle(
-                                      fontFamily: 'Source Code Pro',
-                                    ),
-                                  ),
-                                ),
+              if (hdevent != null)
+                Card(
+                  color: const Color(0xff007aff).withOpacity(0.725),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        hdevent != null
+                            ? BigCard(eventName: hdevent!.eventName)
+                            : const Text('No event selected'),
+                        if (isDateShown)
+                          TimeChips(from: hdevent!.from, to: hdevent!.to),
+                        const SizedBox(height: 20),
+                        Card(
+                          color: const Color(0xff4169E1).withOpacity(0.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              hdevent!.description,
+                              style: const TextStyle(
+                                fontFamily: 'Source Code Pro',
+                                fontSize: 16,
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    )
-                  : Container(),
+                      ],
+                    ),
+                  ),
+                )
+              else
+                Container(),
             ],
           ),
         ),
       ),
-      // Center and SingleChildScrollView ends here
     );
   }
 }
@@ -81,12 +78,12 @@ class BigCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
         eventName,
         style: const TextStyle(
           fontFamily: 'Material Icons',
-          fontSize: 30,
+          fontSize: 24,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
