@@ -4,6 +4,7 @@ import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/models/HDEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
+import 'package:hd2_app/pages/notifications/notification_detail_page.dart';
 import 'package:hd2_app/services/hdevent_service.dart';
 
 import 'package:rxdart/subjects.dart';
@@ -72,10 +73,11 @@ class HDNotificationService {
     final HDEventsService eventsService = HDEventsService();
     final events = eventsService.getAllEvents();
     if (context != null && navigatorKey != null && id != null) {
-      if (id == HDConstants.NOTIFICATION_1_ID ||
-          id == HDConstants.NOTIFICATION_2_ID) {
+      if (id >= HDConstants.EVENT_REMINDER_ID) {
         navigatorKey.currentState?.pushNamed(
-          HDConstants.HOME_PAGE,
+          HDConstants.NOTIFICATION_DETAIL_PAGE,
+          arguments: NotificationDetailPageArguments(
+              selectedIndex: id, hdevents: events),
         );
       } else {
         navigatorKey.currentState?.pushNamed(
@@ -131,32 +133,9 @@ class HDNotificationService {
   static List<HDEvent> _generateNotifications() {
     final HDEventsService eventsService = HDEventsService();
     final List<HDEvent> hdevents = eventsService.getAllEvents();
-
-    hdevents.add(
-      HDEvent(
-        'Welcome to Hack Dearborn 2',
-        DateTime.now().add(Duration(minutes: 10, seconds: 15)),
-        DateTime.now().add(Duration(seconds: 60)),
-        Colors.blue,
-        false,
-        'Stay tuned',
-        HDConstants.NOTIFICATION_1_ID,
-      ),
-    );
-
-    hdevents.add(
-      HDEvent(
-        'HackDearborn : Disrupt Reality',
-        DateTime.now().add(Duration(minutes: 10, seconds: 45)),
-        DateTime.now().add(Duration(seconds: 60)),
-        Colors.blue,
-        false,
-        'Join us now',
-        HDConstants.NOTIFICATION_2_ID,
-      ),
-    );
-
-    return hdevents;
+    final List<HDEvent> eventReminders = eventsService.getEventReminders();
+    final List<HDEvent> allNotifications = [...hdevents, ...eventReminders];
+    return allNotifications;
   }
 
   static Future<void> _scheduleNotification(HDEvent event) async {

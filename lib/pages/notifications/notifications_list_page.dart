@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/models/HDEvent.dart';
 import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
+import 'package:hd2_app/pages/notifications/notification_detail_page.dart';
 import 'package:hd2_app/services/hdevent_service.dart';
 
 class NotificationsListPage extends StatefulWidget {
@@ -42,16 +44,25 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
 
         return InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => EventDetails(
-                      hdevents: filteredEvents, selectedIndex: index)),
-            );
+            if (notification.index >= HDConstants.EVENT_REMINDER_ID) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NotificationDetail(
+                        hdevents: filteredEvents, selectedIndex: index)),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EventDetails(
+                        hdevents: filteredEvents, selectedIndex: index)),
+              );
+            }
           },
           child: Container(
-            height: 80,
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+            height: 90,
+            padding: EdgeInsets.only(top: 20, right: 16, left: 16),
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(color: Colors.grey.withOpacity(0.5)),
@@ -76,13 +87,13 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
                         notification.eventName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                       SizedBox(height: 5),
                       Text(
                         notification.description,
-                        maxLines: 2,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
