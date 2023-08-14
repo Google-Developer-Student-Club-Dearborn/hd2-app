@@ -14,7 +14,7 @@ class Timeline extends StatelessWidget {
       if (calendarTapDetails.targetElement == CalendarElement.appointment) {
         final tappedAppointment = calendarTapDetails.appointments![0];
         final HDEventsService eventsService = HDEventsService();
-        final hdevents = eventsService.getAllEvents();
+        final hdevents = eventsService.getEvents();
         final index = tappedAppointment.index;
         Navigator.push(
           context,
@@ -30,7 +30,7 @@ class Timeline extends StatelessWidget {
     return SfCalendar(
       view: CalendarView.timelineDay,
       initialDisplayDate: DateTime(2023, 10, 21, 10),
-      dataSource: HDEventsSource(eventsService.getAllEvents()),
+      dataSource: HDEventsSource(eventsService.getEvents()),
       showCurrentTimeIndicator: true,
       timeSlotViewSettings: const TimeSlotViewSettings(
         timeIntervalWidth: 100,
