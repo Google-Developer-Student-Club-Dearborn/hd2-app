@@ -6,7 +6,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
 
 class HDEventsService {
-  List<HDEvent> getAllEvents() {
+  List<HDEvent> getEvents() {
     final List<HDEvent> hdevents = <HDEvent>[];
     final DateTime today = DateTime.now();
     final DateTime startTime = DateTime(today.year, today.month, today.day, 10);
@@ -317,7 +317,7 @@ class HDEventsService {
     hdevents.add(
       HDEvent(
         'Welcome to HackDearborn 2!',
-        DateTime.now().add(Duration(minutes: 10, seconds: 40)),
+        DateTime.now().add(Duration(minutes: 10, seconds: 50)),
         DateTime.now().add(Duration(seconds: 60)),
         Colors.blue,
         false,
@@ -403,6 +403,13 @@ class HDEventsService {
     return hdevents;
   }
 
+  List<HDEvent> getAllEvents() {
+    final List<HDEvent> events = getEvents();
+    final List<HDEvent> eventReminders = getEventReminders();
+    final List<HDEvent> allEvents = [...events, ...eventReminders];
+    return allEvents;
+  }
+
 /* 
   the notifications are fired 10 mins before the scheduled start time of the event
   so get the events even before their scheduled time if the notification time (10 minutes before the event) has already passed 
@@ -410,9 +417,7 @@ class HDEventsService {
   List<HDEvent> getFilteredEvents() {
     final DateTime currentDate = DateTime.now();
     final List<HDEvent> events = getAllEvents();
-    final List<HDEvent> eventReminders = getEventReminders();
-    final List<HDEvent> allEvents = [...events, ...eventReminders];
-    final List<HDEvent> filteredEvents = allEvents.where((event) {
+    final List<HDEvent> filteredEvents = events.where((event) {
       DateTime notificationTime = event.from
           .subtract(Duration(minutes: HDConstants.NOTIFICATION_OFFSET));
       return notificationTime.isBefore(currentDate) ||
