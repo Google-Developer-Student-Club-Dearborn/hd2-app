@@ -1,5 +1,6 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hd2_app/components/event_detail_card.dart';
+import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/models/HDEvent.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,11 @@ class _NotificationDetailState extends State<NotificationDetail> {
       body: EventDetailCard(
         theme: theme,
         hdevent: hdevent,
-        isDateShown: false,
+        isDateShown: hdevent != null &&
+                hdevent.index != null &&
+                hdevent.index >= HDConstants.EVENT_REMINDER_ID
+            ? false
+            : true,
       ),
     );
   }
@@ -55,10 +60,9 @@ class _NotificationDetailState extends State<NotificationDetail> {
     if (widget.selectedIndex >= 0 &&
         widget.selectedIndex < widget.hdevents.length) {
       return widget.hdevents[widget.selectedIndex];
-    } else if (args != null &&
-        args.selectedIndex >= 0 &&
-        args.selectedIndex < args.hdevents.length) {
-      return args.hdevents[args.selectedIndex];
+    } else if (args != null && args.selectedIndex >= 0) {
+      return args.hdevents
+          .firstWhere((event) => event.index == args.selectedIndex);
     } else {
       return null;
     }
