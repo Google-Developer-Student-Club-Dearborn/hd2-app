@@ -71,13 +71,14 @@ class HDNotificationService {
   static navigateToNotificationDetails(
       BuildContext? context, GlobalKey<NavigatorState>? navigatorKey, int? id) {
     final HDEventsService eventsService = HDEventsService();
-    final events = eventsService.getAllEvents();
+    final eventReminders = eventsService.getEventReminders();
+    final events = eventsService.getEvents();
     if (context != null && navigatorKey != null && id != null) {
       if (id >= HDConstants.EVENT_REMINDER_ID) {
         navigatorKey.currentState?.pushNamed(
           HDConstants.NOTIFICATION_DETAIL_PAGE,
           arguments: NotificationDetailPageArguments(
-              selectedIndex: id, hdevents: events),
+              selectedIndex: id, hdevents: eventReminders),
         );
       } else {
         navigatorKey.currentState?.pushNamed(
@@ -123,19 +124,12 @@ class HDNotificationService {
       };
 
   static Future<void> scheduleMultipleNotifications() async {
-    final List<HDEvent> eventsToSchedule = _generateNotifications();
+    final HDEventsService eventsService = HDEventsService();
+    final List<HDEvent> eventsToSchedule = eventsService.getAllEvents();
 
     for (final event in eventsToSchedule) {
       await _scheduleNotification(event);
     }
-  }
-
-  static List<HDEvent> _generateNotifications() {
-    final HDEventsService eventsService = HDEventsService();
-    final List<HDEvent> hdevents = eventsService.getAllEvents();
-    final List<HDEvent> eventReminders = eventsService.getEventReminders();
-    final List<HDEvent> allNotifications = [...hdevents, ...eventReminders];
-    return allNotifications;
   }
 
   static Future<void> _scheduleNotification(HDEvent event) async {
