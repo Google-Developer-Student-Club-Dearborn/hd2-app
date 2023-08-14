@@ -49,20 +49,22 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => NotificationDetail(
-                        hdevents: filteredEvents, selectedIndex: index)),
+                        hdevents: eventsService.getEventReminders(),
+                        selectedIndex: index)),
               );
             } else {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => EventDetails(
-                        hdevents: filteredEvents, selectedIndex: index)),
+                        hdevents: eventsService.getEvents(),
+                        selectedIndex: index)),
               );
             }
           },
           child: Container(
             height: 90,
-            padding: EdgeInsets.only(top: 20, right: 16, left: 16),
+            padding: EdgeInsets.only(top: 20, right: 20, left: 16),
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(color: Colors.grey.withOpacity(0.5)),
@@ -83,12 +85,22 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        notification.eventName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              notification.eventName,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Icon(Icons.chevron_right),
+                        ],
                       ),
                       SizedBox(height: 5),
                       Text(
@@ -96,6 +108,13 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
+                      SizedBox(height: 5),
+                      Text(
+                          '${notification.from.day}/${notification.from.month}/${notification.from.year}',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          )),
                     ],
                   ),
                 ),
