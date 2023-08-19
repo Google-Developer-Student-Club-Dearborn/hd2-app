@@ -112,7 +112,7 @@ class _InformationPageState extends State<InformationPage> {
                         child: Hero(
                           tag: "tag2",
                           child: Text(
-                            'Checklist Before You Arrive',
+                            'Where To Park',
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ),

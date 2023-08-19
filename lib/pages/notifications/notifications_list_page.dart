@@ -44,7 +44,7 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
 
         return InkWell(
           onTap: () {
-            if (notification.index >= HDConstants.EVENT_REMINDER_ID) {
+            if (notification.index >= HDConstants.eventReminderId) {
               Navigator.push(
                 context,
                 MaterialPageRoute(

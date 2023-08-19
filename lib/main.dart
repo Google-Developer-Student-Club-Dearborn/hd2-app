@@ -43,12 +43,12 @@ class MyApp extends StatelessWidget {
         home: const MyHomePage(title: 'HackDearborn 2'),
         navigatorKey: navigatorKey,
         routes: {
-          HDConstants.HOME_PAGE: (context) =>
+          HDConstants.homePage: (context) =>
               MyHomePage(title: 'HackDearborn 2'),
-          HDConstants.QR_CODE_PAGE: (context) => QrCodePage(),
-          HDConstants.EVENT_DETAILS_PAGE: (context) =>
+          HDConstants.qrCodePage: (context) => QrCodePage(),
+          HDConstants.eventDetailsPage: (context) =>
               EventDetails(hdevents: [], selectedIndex: 0),
-          HDConstants.NOTIFICATION_DETAIL_PAGE: (context) =>
+          HDConstants.notificationDetailPage: (context) =>
               NotificationDetail(hdevents: [], selectedIndex: 0),
         },
       ),

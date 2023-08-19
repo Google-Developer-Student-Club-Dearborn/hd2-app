@@ -74,15 +74,15 @@ class HDNotificationService {
     final eventReminders = eventsService.getEventReminders();
     final events = eventsService.getEvents();
     if (context != null && navigatorKey != null && id != null) {
-      if (id >= HDConstants.EVENT_REMINDER_ID) {
+      if (id >= HDConstants.eventReminderId) {
         navigatorKey.currentState?.pushNamed(
-          HDConstants.NOTIFICATION_DETAIL_PAGE,
+          HDConstants.notificationDetailPage,
           arguments: NotificationDetailPageArguments(
               selectedIndex: id, hdevents: eventReminders),
         );
       } else {
         navigatorKey.currentState?.pushNamed(
-          HDConstants.EVENT_DETAILS_PAGE,
+          HDConstants.eventDetailsPage,
           arguments:
               EventDetailPageArguments(selectedIndex: id, hdevents: events),
         );
@@ -134,7 +134,7 @@ class HDNotificationService {
 
   static Future<void> _scheduleNotification(HDEvent event) async {
     final DateTime scheduledDate =
-        event.from.subtract(Duration(minutes: HDConstants.NOTIFICATION_OFFSET));
+        event.from.subtract(Duration(minutes: HDConstants.notificationOffset));
 
     await showScheduledNotification(
       id: event.index,

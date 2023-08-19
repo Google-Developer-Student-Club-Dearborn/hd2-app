@@ -49,7 +49,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
         hdevent: hdevent,
         isDateShown: hdevent != null &&
                 hdevent.index != null &&
-                hdevent.index >= HDConstants.EVENT_REMINDER_ID
+                hdevent.index >= HDConstants.eventReminderId
             ? false
             : true,
       ),
