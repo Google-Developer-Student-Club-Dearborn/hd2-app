@@ -42,7 +42,7 @@ class _InputRowState extends State<InputRow> {
           child: TextField(
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: 'Email/Phone #:',
+              labelText: 'Phone #:',
               errorText: showError ? 'Invalid input' : null,
             ),
             controller: textController,
