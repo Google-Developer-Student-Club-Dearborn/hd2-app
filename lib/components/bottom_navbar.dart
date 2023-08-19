@@ -21,6 +21,7 @@ class CustomBottomNavbar extends StatelessWidget {
         Icon(Icons.view_agenda_sharp, size: 30),
         Icon(Icons.info, size: 30),
         Icon(Icons.qr_code, size: 30),
+        Icon(Icons.notifications, size: 30),
       ],
       onTap: onTap,
     );

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hd2_app/constants/hd_constants.dart';
+import 'package:hd2_app/pages/agenda_page/event_details_page.dart';
+import 'package:hd2_app/pages/notifications/notification_detail_page.dart';
+import 'package:hd2_app/pages/notifications/notifications_list_page.dart';
+import 'package:hd2_app/services/hdnotification_service.dart';
 import 'package:provider/provider.dart';
 
 // pub.dev libraries
@@ -16,6 +21,8 @@ import 'package:hd2_app/pages/agenda_page/navbar.dart';
 import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  HDNotificationService.init(initScheduled: true);
   runApp(const MyApp());
 }
 
@@ -24,12 +31,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+    HDNotificationService.init(
+        initScheduled: true, context: context, navigatorKey: navigatorKey);
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'HackDearborn 2',
         theme: ThemeData(brightness: Brightness.dark),
         home: const MyHomePage(title: 'HackDearborn 2'),
+        navigatorKey: navigatorKey,
+        routes: {
+          HDConstants.homePage: (context) =>
+              MyHomePage(title: 'HackDearborn 2'),
+          HDConstants.qrCodePage: (context) => QrCodePage(),
+          HDConstants.eventDetailsPage: (context) =>
+              EventDetails(hdevents: [], selectedIndex: 0),
+          HDConstants.notificationDetailPage: (context) =>
+              NotificationDetail(hdevents: [], selectedIndex: 0),
+        },
       ),
     );
   }
@@ -133,8 +154,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     return const AgendaPage();
                   case 1:
                     return const InformationPage();
-                  default:
+                  case 2:
                     return const QrCodePage();
+                  default:
+                    return NotificationsListPage();
                 }
               },
             ),
