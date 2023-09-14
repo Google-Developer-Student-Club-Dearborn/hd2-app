@@ -1,4 +1,3 @@
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hd2_app/components/event_detail_card.dart';
 import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/models/HDEvent.dart';
@@ -16,7 +15,7 @@ class NotificationDetail extends StatefulWidget {
   final List<HDEvent> hdevents;
   int selectedIndex;
 
-  NotificationDetail({required this.hdevents, required this.selectedIndex});
+  NotificationDetail({super.key, required this.hdevents, required this.selectedIndex});
 
   @override
   State<NotificationDetail> createState() => _NotificationDetailState();
@@ -48,7 +47,6 @@ class _NotificationDetailState extends State<NotificationDetail> {
         theme: theme,
         hdevent: hdevent,
         isDateShown: hdevent != null &&
-                hdevent.index != null &&
                 hdevent.index >= HDConstants.eventReminderId
             ? false
             : true,

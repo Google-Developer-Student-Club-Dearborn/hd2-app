@@ -23,6 +23,7 @@ import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   HDNotificationService.init(initScheduled: true);
+  HDNotificationService.showWelcomeNotification();
   runApp(const MyApp());
 }
 
@@ -40,12 +41,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'HackDearborn 2',
         theme: ThemeData(brightness: Brightness.dark),
+        debugShowCheckedModeBanner: false,
         home: const MyHomePage(title: 'HackDearborn 2'),
         navigatorKey: navigatorKey,
         routes: {
           HDConstants.homePage: (context) =>
-              MyHomePage(title: 'HackDearborn 2'),
-          HDConstants.qrCodePage: (context) => QrCodePage(),
+              const MyHomePage(title: 'HackDearborn 2'),
+          HDConstants.qrCodePage: (context) => const QrCodePage(),
           HDConstants.eventDetailsPage: (context) =>
               EventDetails(hdevents: [], selectedIndex: 0),
           HDConstants.notificationDetailPage: (context) =>
@@ -57,7 +59,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  //TODO: store NavBar settings here
   FilterSettings _filterSettings = FilterSettings();
   int _amountOfButtons = 3;
   int _selekshun = 0;
@@ -155,7 +156,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   case 1:
                     return const InformationPage();
                   case 2:
-                    return const QrCodePage();
+                    // ignore: prefer_const_constructors
+                    return QrCodePage();
                   default:
                     return NotificationsListPage();
                 }

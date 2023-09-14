@@ -30,9 +30,10 @@ class _InformationPageState extends State<InformationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(children: [
+    return ListView(children: [
       DisplayCard(
+        heroTag: "about",
+        heroText: "abouttext",
         onTap: () {
           context.pushTransparentRoute(
             DismissiblePage(
@@ -46,7 +47,7 @@ class _InformationPageState extends State<InformationPage> {
                   child: Column(
                     children: [
                       Hero(
-                        tag: 'tag1',
+                        tag: 'checklisthero',
                         child: Image.asset(
                           'assets/checklist.jpg',
                           fit: BoxFit.cover,
@@ -55,7 +56,7 @@ class _InformationPageState extends State<InformationPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Hero(
-                          tag: "tag2",
+                          tag: "cheklisttext",
                           child: Text(
                             'Checklist Before You Arrive',
                             style: Theme.of(context).textTheme.headlineSmall,
@@ -88,6 +89,8 @@ class _InformationPageState extends State<InformationPage> {
         data: 'Checklist Before You Arrive',
       ),
       DisplayCard(
+        heroTag: "parking",
+        heroText: "parkingtext1",
         onTap: () {
           context.pushTransparentRoute(
             DismissiblePage(
@@ -101,7 +104,7 @@ class _InformationPageState extends State<InformationPage> {
                   child: Column(
                     children: [
                       Hero(
-                        tag: 'tag1',
+                        tag: 'parkinghero',
                         child: Image.asset(
                           'assets/parking.png',
                           fit: BoxFit.cover,
@@ -110,7 +113,7 @@ class _InformationPageState extends State<InformationPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Hero(
-                          tag: "tag2",
+                          tag: "parkingtext",
                           child: Text(
                             'Where To Park',
                             style: Theme.of(context).textTheme.headlineSmall,
@@ -152,6 +155,8 @@ class _InformationPageState extends State<InformationPage> {
         data: 'Where To Park',
       ),
       DisplayCard(
+          heroTag: "tracks",
+          heroText: "trackstext1",
           onTap: () {
             context.pushTransparentRoute(
               DismissiblePage(
@@ -165,7 +170,7 @@ class _InformationPageState extends State<InformationPage> {
                     child: Column(
                       children: [
                         Hero(
-                          tag: 'tag1',
+                          tag: 'trackshero',
                           child: Image.asset(
                             'assets/tracks.jpg',
                             fit: BoxFit.cover,
@@ -174,7 +179,7 @@ class _InformationPageState extends State<InformationPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Hero(
-                            tag: "tag2",
+                            tag: "trackstext",
                             child: Text(
                               'Hackathon Tracks',
                               style: Theme.of(context).textTheme.headlineSmall,
@@ -237,6 +242,8 @@ class _InformationPageState extends State<InformationPage> {
           image: 'assets/tracks.jpg',
           data: "Hackathon Tracks"),
       DisplayCard(
+        heroTag: "mentors",
+        heroText: "mentorstext1",
         onTap: () {
           context.pushTransparentRoute(
             DismissiblePage(
@@ -250,7 +257,7 @@ class _InformationPageState extends State<InformationPage> {
                   child: Column(
                     children: [
                       Hero(
-                        tag: 'tag1',
+                        tag: 'mentorshero',
                         child: Image.asset(
                           'assets/mentor.jpg',
                           fit: BoxFit.cover,
@@ -259,7 +266,7 @@ class _InformationPageState extends State<InformationPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Hero(
-                          tag: "tag2",
+                          tag: "mentorstext",
                           child: Text(
                             'Technical Mentors',
                             style: Theme.of(context).textTheme.headlineSmall,
@@ -281,6 +288,8 @@ class _InformationPageState extends State<InformationPage> {
         data: "Technical Mentors",
       ),
       DisplayCard(
+          heroTag: "judge",
+          heroText: "judgetext1",
           onTap: () {
             context.pushTransparentRoute(
               DismissiblePage(
@@ -294,7 +303,7 @@ class _InformationPageState extends State<InformationPage> {
                     child: Column(
                       children: [
                         Hero(
-                          tag: 'tag1',
+                          tag: 'judgehero',
                           child: Image.asset(
                             'assets/judge.jpg',
                             fit: BoxFit.cover,
@@ -303,7 +312,7 @@ class _InformationPageState extends State<InformationPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Hero(
-                            tag: "tag2",
+                            tag: "judgetext",
                             child: Text(
                               'About Judging',
                               style: Theme.of(context).textTheme.headlineSmall,
@@ -353,7 +362,69 @@ class _InformationPageState extends State<InformationPage> {
             );
           },
           image: 'assets/judge.jpg',
-          data: "About Judging")
-    ]));
+          data: "About Judging"),
+      DisplayCard(
+          heroTag: "bjj",
+          heroText: "bjjtext1",
+          onTap: () {
+            context.pushTransparentRoute(
+              DismissiblePage(
+                onDismissed: () {
+                  Navigator.of(context).pop();
+                },
+                direction: DismissiblePageDismissDirection.down,
+                isFullScreen: false,
+                child: Scaffold(
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Hero(
+                          tag: 'bjjhero',
+                          child: Image.asset(
+                            'assets/bjj.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Hero(
+                            tag: "bjjtext",
+                            child: Text(
+                              'Brazilian Jiu Jitsu',
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              const Text(
+                                "\nBrazilian Jiu-Jitsu (BJJ) is a ground-based martial art and combat sport that originated in Brazil. Developed in the early 20th century, it emphasizes techniques and leverage over physical strength, making it effective for self-defense.\n\nHackdearborn is proud to partner with Vision to offer this interactive workshop for you all to destress and take a break from coding.\n\n",
+                              ),
+                              InkWell(
+                                child: const Text(
+                                  'Sign the waiver here.',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                onTap: () => launchUrl(Uri.parse(
+                                    'https://docuseal.co/d/ozsVTjaUuuxsFk')),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+          image: 'assets/bjj.jpg',
+          data: "Brazilian Jiu Jitsu"),
+    ]);
   }
 }

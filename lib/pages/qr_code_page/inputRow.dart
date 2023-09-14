@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hd2_app/main.dart';
+import 'package:hd2_app/pages/qr_code_page/qr_code_page.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InputRow extends StatefulWidget {
   const InputRow({super.key});
@@ -33,6 +35,11 @@ class _InputRowState extends State<InputRow> {
     return isEmail || isPhone;
   }
 
+  Future<void> saveStringToSharedPreferences(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userQRString', value);
+  }
+
   @override
   Widget build(BuildContext context) {
     final qrSettingsProvider = Provider.of<MyAppState>(context, listen: false);
@@ -57,6 +64,7 @@ class _InputRowState extends State<InputRow> {
             });
             if (!showError) {
               qrSettingsProvider.userQRString = textController.text;
+              saveStringToSharedPreferences(textController.text);
             }
           },
           style: ButtonStyle(

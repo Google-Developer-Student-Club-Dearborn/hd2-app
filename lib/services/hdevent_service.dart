@@ -2,8 +2,22 @@ import 'package:hd2_app/constants/hd_constants.dart';
 import 'package:hd2_app/models/HDEvent.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HDEventsService {
+  static Future<bool> shouldShowWelcomeNotification() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // await prefs.clear();
+    final bool hasShownNotification =
+        prefs.getBool('hasShownNotification') ?? false;
+    return !hasShownNotification;
+  }
+
+  static Future<void> markWelcomeNotificationAsShown() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasShownNotification', true);
+  }
+
   List<HDEvent> getEvents() {
     final List<HDEvent> hdevents = <HDEvent>[];
 
@@ -11,9 +25,6 @@ class HDEventsService {
     const month = HDConstants.month;
     const day1 = HDConstants.day_1;
     const day2 = HDConstants.day_2;
-
-    const String loremIpsum =
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
     // Check-in
     hdevents.add(
@@ -23,7 +34,7 @@ class HDEventsService {
         DateTime(year, month, day1, 10),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "Check in at UC front desk. \nProfessional headshots in Kochoff Hall A.",
+        "Check in at UC front desk.\n\nProfessional headshots in Kochoff Hall A.",
         0,
       ),
     );
@@ -31,12 +42,12 @@ class HDEventsService {
     // Sponsor-Fair
     hdevents.add(
       HDEvent(
-        'Sponsor Fair/Check In',
+        'Sponsor Fair',
         DateTime(year, month, day1, 10),
         DateTime(year, month, day1, 11, 15),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "Sponsor Fair!",
+        "Description: Sponsor recruiter representatives will have booths in the UC Entrance to discuss what their company does, internship/co-op and full-time opportunities and their unique software solutions. In Kochoff A, sponsor technical representatives will present their software APIs along with students and partners presenting their innovative projects.\n\nInstruction: Interact with recruiters and technical sponsor representatives alike by stopping by each booth. Make sure to pick up some swag from the sponsors!",
         1,
       ),
     );
@@ -49,7 +60,7 @@ class HDEventsService {
         DateTime(year, month, day1, 12),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "Location: Kochoff Hall B & C",
+        "Location: Kochoff Hall B & C\n\nDescription: Welcome to Hack Dearborn! Are you ready to disrupt reality? We will introduce you to our tracks, prizes, MLH-sponsored prizes and sponsored challenge statements during this opening ceremony. Keynote speakers from different companies will give brief presentations to introduce the hackathon as well.\n\nInstruction: Make your way to Kochoff B and C and find a seat. Keep your eye out for some hidden raffle prize opportunities.",
         2,
       ),
     );
@@ -62,7 +73,7 @@ class HDEventsService {
         DateTime(year, month, day1, 12),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "Hacking Starts!",
+        "Description:  Hacking. Begins. Now. If you have a team, go grab lunch! If you don’t, stick around and find a technical mentor or a Hack Dearborn organizer and we’ll help you out!",
         3,
       ),
     );
@@ -70,12 +81,12 @@ class HDEventsService {
     // Lunch & team formation
     hdevents.add(
       HDEvent(
-        'Lunch/Team Formation',
+        'Lunch',
         DateTime(year, month, day1, 12),
         DateTime(year, month, day1, 13),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "Lunch at McKinley Café",
+        "Location: McKinley Café\n\nDescription: Line up at the McKinley Cafe for some tasty lunch before you start your hardcore hacking. You can also use this lunch as an opportunity to brainstorm with your team! If you need help, find an organizer!",
         4,
       ),
     );
@@ -88,7 +99,7 @@ class HDEventsService {
         DateTime(year, month, day1, 14),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "UC Dining Hallr",
+        "Location: UC Dining Hallr\n\nDescription: Need guidance on your project idea? Step right up to the Dining Hall and an organizer will match you to the best sponsor representative. You can discuss your ideas with them for as long as you need to!",
         5,
       ),
     );
@@ -101,7 +112,7 @@ class HDEventsService {
         DateTime(year, month, day1, 15),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "UC 1225 & 1227",
+        "Location: UC 1225 & 1227\n\nDescription: Join us at room 1225 and 1227 for cool workshops that will help you with your project! Please choose one workshop to attend. P.S: You’ll get a raffle ticket if you stay til the end.",
         6,
       ),
     );
@@ -114,7 +125,7 @@ class HDEventsService {
         DateTime(year, month, day1, 17),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "UC 1225 & 1227",
+        "Location: UC 1225 & 1227\n\nDescription: Join us at room 1225 and 1227 for cool workshops that will help you with your project! Please choose one workshop to attend. P.S: You’ll get a raffle ticket if you stay til the end.",
         7,
       ),
     );
@@ -122,12 +133,12 @@ class HDEventsService {
     // Games and Activities
     hdevents.add(
       HDEvent(
-        'Fun Activity',
+        'Ju-Jitsu Workshop',
         DateTime(year, month, day1, 17),
         DateTime(year, month, day1, 18),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "TBD. Location UC Stage.",
+        "Description: Want a brain break from your super awesome but also super difficult project? Join us at the UC stage for a fun Ju-Jitsu workshop!\n\nPlease fill out the waiver form, which can be found in the Jit Jitsu info card.",
         8,
       ),
     );
@@ -140,7 +151,7 @@ class HDEventsService {
         DateTime(year, month, day1, 20),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        loremIpsum,
+        "Description: It’s time to line up again at the McKinley Cafe for some tasty dinner to celebrate a day of hard work.",
         9,
       ),
     );
@@ -153,7 +164,7 @@ class HDEventsService {
         DateTime(year, month, day1, 21),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        "UC 1225",
+        "Location:UC 1225\n\nDescription: MLH is a proud partner of Hack Dearborn! We’d like to offer a friendly game of Cup Stacking, brought to you by MLH.",
         10,
       ),
     );
@@ -161,12 +172,12 @@ class HDEventsService {
     // Entry Closed
     hdevents.add(
       HDEvent(
-        'Entry Closed Until 7am',
+        'Entry Closed',
         DateTime(year, month, day1, 23),
         DateTime(year, month, day1, 23),
         const Color.fromARGB(255, 73, 23, 188),
         false,
-        loremIpsum,
+        "Description: The doors must be locked from the outside at this time for safety reasons. You can still exit the building, but no one can enter without letting an organizer know after this time.",
         11,
       ),
     );
@@ -181,7 +192,7 @@ class HDEventsService {
         DateTime(year, month, day2),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        "McKinley Café",
+        "Location: McKinley Café\n\nDescription: Everyone needs a midnight brain break! Join us for some fluffy pink and blue cotton candy and an interesting game.",
         12,
       ),
     );
@@ -194,7 +205,7 @@ class HDEventsService {
         DateTime(year, month, day2, 7),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        loremIpsum,
+        "Description: We’re back! Doors are officially open from the outside and please stop back at registration so we can check you in for the day, especially if you are demoing.",
         13,
       ),
     );
@@ -207,7 +218,7 @@ class HDEventsService {
         DateTime(year, month, day2, 9),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        "McKinley Café",
+        "Location: McKinley Café\n\nDescription: It’s that time again… line up at the McKinley Cafe for some tasty breakfast to get you energized for the final few hours of hacking left.",
         14,
       ),
     );
@@ -220,7 +231,7 @@ class HDEventsService {
         DateTime(year, month, day2, 10, 30),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        "UC 1225",
+        "Location: UC 1225\n\nDescription: Are you a newbie or have you not used DevPost in a while? Attend this workshop so you have no issues during the demoing process and so you can be stress-free!",
         15,
       ),
     );
@@ -233,7 +244,7 @@ class HDEventsService {
         DateTime(year, month, day2, 12),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        loremIpsum,
+        "Description: Time is officially up! Are you ready for it? Of course you are. Go eat some lunch!",
         16,
       ),
     );
@@ -246,7 +257,7 @@ class HDEventsService {
         DateTime(year, month, day2, 13),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        "McKinley Café",
+        "Location: McKinley Café\n\nDescription: Okay we promise this is the last time you have to line up at the McKinley Cafe for some tasty lunch to get you through the judging process.",
         17,
       ),
     );
@@ -259,7 +270,7 @@ class HDEventsService {
         DateTime(year, month, day2, 13, 30),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        "UC Entrace Hallway",
+        "Location: UC Entrace Hallway\n\nDescription: See those tables in the UC entrance? Find an organizer and they will assign you one. Start setting up, maybe do a test run and make sure everything is smooth. You got 30 min left!",
         18,
       ),
     );
@@ -272,7 +283,7 @@ class HDEventsService {
         DateTime(year, month, day2, 14, 30),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        "UC Entrace Hallway",
+        "Location: UC Entrace Hallway\n\nDescription: You know what to do. Impress the judges with your amazing project! Be confident and really sell it!",
         19,
       ),
     );
@@ -280,12 +291,12 @@ class HDEventsService {
     // Game
     hdevents.add(
       HDEvent(
-        'Game',
+        'MLH Game',
         DateTime(year, month, day2, 14, 30),
         DateTime(year, month, day2, 15),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        "TBD: MLH",
+        "Location: UC Stage\n\nDescription: Anxiously waiting for the results? So are we. But, we have numbers to crunch so enjoy a fun game of cup stacking to ease your soul at the UC stage.",
         20,
       ),
     );
@@ -298,7 +309,7 @@ class HDEventsService {
         DateTime(year, month, day2, 15, 45),
         const Color.fromARGB(255, 188, 23, 141),
         false,
-        "McKinley Café",
+        "Location: ELB Atrium\n\nDescription: It’s time to find out who disrupted reality and who just…delayed it. We will be announcing our winners and the MLH winners, having a final keynote speech and thanking everyone for coming and making this event the best it’s ever been! #Hack Dearborn #IDisruptedReality (use this hashtag to post about our event on 	social media!)",
         21,
       ),
     );
@@ -309,17 +320,17 @@ class HDEventsService {
   List<HDEvent> getEventReminders() {
     final List<HDEvent> hdevents = <HDEvent>[];
 
-    hdevents.add(
-      HDEvent(
-        'Welcome to HackDearborn 2!',
-        DateTime.now().add(const Duration(minutes: 10, seconds: 50)),
-        DateTime.now().add(const Duration(seconds: 60)),
-        Colors.blue,
-        false,
-        "🚀 Get ready to challenge norms, push boundaries, and bring your wildest ideas to life. Happening on October 21!",
-        80,
-      ),
-    );
+    // hdevents.add(
+    //   HDEvent(
+    //     'Welcome to HackDearborn 2!',
+    //     DateTime.now().add(const Duration(minutes: 10, seconds: 50)),
+    //     DateTime.now().add(const Duration(seconds: 60)),
+    //     Colors.blue,
+    //     false,
+    //     "🚀 Get ready to challenge norms, push boundaries, and bring your wildest ideas to life. Happening on October 21!",
+    //     80,
+    //   ),
+    // );
 
     hdevents.add(
       HDEvent(

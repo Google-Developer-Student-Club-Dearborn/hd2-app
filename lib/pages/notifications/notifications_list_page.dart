@@ -6,6 +6,8 @@ import 'package:hd2_app/pages/notifications/notification_detail_page.dart';
 import 'package:hd2_app/services/hdevent_service.dart';
 
 class NotificationsListPage extends StatefulWidget {
+  const NotificationsListPage({super.key});
+
   @override
   _NotificationsListPageState createState() => _NotificationsListPageState();
 }
@@ -29,7 +31,7 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
   @override
   Widget build(BuildContext context) {
     if (filteredEvents.isEmpty) {
-      return Center(
+      return const Center(
         child: Text(
           'All caught up',
           style: TextStyle(fontSize: 16),
@@ -64,7 +66,7 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
           },
           child: Container(
             height: 90,
-            padding: EdgeInsets.only(top: 20, right: 20, left: 16),
+            padding: const EdgeInsets.only(top: 20, right: 20, left: 16),
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(color: Colors.grey.withOpacity(0.5)),
@@ -80,7 +82,7 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
                     height: 40,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,25 +95,25 @@ class _NotificationsListPageState extends State<NotificationsListPage> {
                               notification.eventName,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
                             ),
                           ),
-                          Icon(Icons.chevron_right),
+                          const Icon(Icons.chevron_right),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                         notification.description,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                           '${notification.from.day}/${notification.from.month}/${notification.from.year}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             color: Colors.grey,
                           )),

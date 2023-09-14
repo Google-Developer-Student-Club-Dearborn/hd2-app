@@ -20,7 +20,7 @@ class HDNotificationService {
       NotificationDetails(
           android: AndroidNotificationDetails(
             'channel id',
-            'channel name',
+            'HackDearborn 2',
             playSound: true,
             priority: Priority.high,
             importance: Importance.high,
@@ -56,9 +56,8 @@ class HDNotificationService {
   }
 
   static InitializationSettings getInitializationSettings() {
-    // TODO find android app icon
-    final AndroidInitializationSettings androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const AndroidInitializationSettings androidSettings =
+        AndroidInitializationSettings('app_icon');
 
     final iOSSettings = DarwinInitializationSettings(
         onDidReceiveLocalNotification:
@@ -102,6 +101,14 @@ class HDNotificationService {
         );
   }
 
+  void requestAndroidPermissions(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestPermission();
+  }
+
   static Future showNotification(
           {int id = 0, String? title, String? body}) async =>
       _notifications.show(id, title, body, platformChannelSpecifics);
@@ -133,8 +140,8 @@ class HDNotificationService {
   }
 
   static Future<void> _scheduleNotification(HDEvent event) async {
-    final DateTime scheduledDate =
-        event.from.subtract(Duration(minutes: HDConstants.notificationOffset));
+    final DateTime scheduledDate = event.from
+        .subtract(const Duration(minutes: HDConstants.notificationOffset));
 
     await showScheduledNotification(
       id: event.index,
@@ -142,5 +149,22 @@ class HDNotificationService {
       body: event.description,
       scheduledDate: scheduledDate,
     );
+  }
+
+  static Future<void> showWelcomeNotification() async {
+    final bool shouldShowNotification =
+        await HDEventsService.shouldShowWelcomeNotification();
+
+    if (shouldShowNotification) {
+      Future.delayed(const Duration(minutes: 1), () async {
+        await showNotification(
+          id: 80,
+          title: 'Welcome to HackDearborn 2!',
+          body:
+              '🚀 Get ready to challenge norms, push boundaries, and bring your wildest ideas to life. Happening on October 21!',
+        );
+      });
+      await HDEventsService.markWelcomeNotificationAsShown();
+    }
   }
 }

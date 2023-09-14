@@ -6,11 +6,15 @@ class DisplayCard extends StatelessWidget {
     required this.onTap,
     required this.image,
     required this.data,
+    required this.heroTag,
+    required this.heroText,
   });
 
   final VoidCallback onTap;
   final String image;
   final String data;
+  final String heroTag;
+  final String heroText;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class DisplayCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: 'tag1',
+              tag: heroTag,
               child: Image.asset(
                 image,
                 fit: BoxFit.cover,
@@ -36,7 +40,7 @@ class DisplayCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Hero(
-                tag: 'tag2',
+                tag: heroText,
                 child: Text(
                   data,
                   style: Theme.of(context).textTheme.headlineSmall,
